@@ -1,5 +1,5 @@
 /* NOVA service worker — офлайн-работа и мгновенные загрузки */
-const CACHE = 'nova-v3';
+const CACHE = 'nova-v4';
 const ASSETS = [
   './',
   './index.html',
