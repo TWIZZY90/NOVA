@@ -4,7 +4,7 @@
   "description": "NOVA — универсальный ИИ: чат, код, переводы, изображения, SUPER-подписка.",
   "lang": "ru",
   "dir": "ltr",
-  "start_url": "./index.html",
+  "start_url": "./index.html?app=1",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -18,7 +18,7 @@
     { "src": "icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "apple-touch-icon" }
   ],
   "shortcuts": [
-    { "name": "Чат NOVA", "url": "./index.html#chat" },
+    { "name": "Чат NOVA", "url": "./index.html?app=1" },
     { "name": "SUPER", "url": "./index.html#super" },
     { "name": "Скачать", "url": "./index.html#download" }
   ]
