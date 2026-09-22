@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NOVA — Умный ИИ-ассистент нового поколения</title>
 <meta name="description" content="NOVA — универсальный ИИ: чат, код, переводы, аналитика, изображения. Скачай на компьютер или подключи SUPER.">
+<meta name="theme-color" content="#7c5cff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NOVA">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <style>
 :root{
   --bg:#05060c;
@@ -280,12 +288,70 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
 .rv{opacity:0;transform:translateY(34px);transition:.7s cubic-bezier(.2,.8,.3,1)}
 .rv.in{opacity:1;transform:none}
 
+/* ===== язык ===== */
+.lang-pill{font-size:11px;font-weight:800;letter-spacing:.7px;background:rgba(34,224,200,.16);border:1px solid rgba(34,224,200,.45);color:#5ff0dc;padding:2px 8px;border-radius:7px;transition:.3s}
+
+/* ===== фото в чате ===== */
+.attach{width:54px;height:54px;flex:0 0 54px;border-radius:16px;background:var(--panel);border:1px solid var(--line);color:var(--txt);font-size:21px;cursor:pointer;transition:.25s;display:grid;place-items:center}
+.attach:hover{background:rgba(124,92,255,.2);border-color:rgba(124,92,255,.6);transform:translateY(-2px)}
+.m .photo{max-width:280px;border-radius:14px;display:block;border:1px solid var(--line);cursor:zoom-in}
+.m.me .photo{margin-left:auto}
+.photo-note{font-size:12.5px;color:var(--muted);margin-top:7px}
+
+/* ===== редактор фото ===== */
+.ed-box{margin-top:12px;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:16px;padding:13px;max-width:420px}
+.ed-box canvas{width:100%;border-radius:11px;display:block;background:#0a0b12;max-height:320px;object-fit:contain}
+.ed-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
+.ed-btn{background:rgba(255,255,255,.07);border:1px solid var(--line);color:var(--txt);font-family:inherit;font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:100px;cursor:pointer;transition:.2s}
+.ed-btn:hover{background:rgba(124,92,255,.24);border-color:rgba(124,92,255,.6)}
+.ed-btn.save{background:var(--grad);color:#07070d;border:0}
+.ed-btn.save:hover{transform:translateY(-1px)}
+.ed-meta{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.gen-status{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--muted);margin-top:10px}
+.gen-img{max-width:340px;width:100%;border-radius:15px;border:1px solid var(--line);display:block;margin-top:10px;background:#0a0b12;min-height:60px}
+.gen-img.loading{opacity:.4}
+.sw{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,.4);margin-right:4px;vertical-align:-2px}
+
+/* ===== приложения ===== */
+.plat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:50px}
+.plat-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px;text-align:center;transition:.3s}
+.plat-card:hover{transform:translateY(-6px);background:var(--panel2);border-color:rgba(255,255,255,.24)}
+.plat-ico{font-size:40px;margin-bottom:12px}
+.plat-card h3{font-size:18.5px;margin-bottom:7px}
+.plat-card p{color:var(--muted);font-size:14px;margin-bottom:17px;min-height:60px}
+.badge-soon{display:inline-block;font-size:11.5px;background:rgba(255,201,92,.16);border:1px solid rgba(255,201,92,.45);color:#ffd479;padding:3px 11px;border-radius:100px;margin-bottom:13px}
+.badge-live{background:rgba(34,224,200,.15);border-color:rgba(34,224,200,.45);color:#5ff0dc}
+.install-bar{margin-top:36px;background:linear-gradient(130deg,rgba(124,92,255,.18),rgba(34,224,200,.12));border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:30px 34px;display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.install-bar h3{font-size:21px;margin-bottom:6px}
+.install-bar p{color:var(--muted);font-size:14.7px;max-width:560px}
+
+/* ===== поддержка ===== */
+.sup-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:50px}
+.sup-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:30px}
+.sup-card h3{font-size:19px;margin-bottom:18px;display:flex;gap:10px;align-items:center}
+.sfield{margin-bottom:14px}
+.sfield label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px;font-weight:600}
+.sfield input,.sfield select,.sfield textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:13px;padding:12px 15px;color:var(--txt);font-family:inherit;font-size:15px;outline:none;transition:.22s;appearance:none}
+.sfield textarea{min-height:110px;resize:vertical}
+.sfield input:focus,.sfield select:focus,.sfield textarea:focus{border-color:rgba(124,92,255,.75);box-shadow:0 0 0 4px rgba(124,92,255,.13)}
+.sfield select option{background:#12141f}
+.quick a{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:15px;padding:15px 17px;margin-bottom:11px;transition:.25s;cursor:pointer}
+.quick a:hover{border-color:rgba(34,224,200,.5);background:rgba(34,224,200,.07);transform:translateX(4px)}
+.quick b{display:block;font-size:15px;margin-bottom:3px}
+.quick span{font-size:13.5px;color:var(--muted)}
+.quick .qi{font-size:19px;line-height:1.3}
+.sup-contacts{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.sup-contacts a{font-size:13.5px;background:rgba(255,255,255,.06);border:1px solid var(--line);padding:8px 15px;border-radius:100px;color:var(--muted);transition:.2s}
+.sup-contacts a:hover{color:#fff;border-color:rgba(124,92,255,.6)}
+
 /* ===== адаптив ===== */
 @media(max-width:980px){
   .hero-inner,.f-grid,.dl-grid,.t-grid,.f-top{grid-template-columns:1fr 1fr}
   .hero-inner{gap:40px}
   .f-top{grid-template-columns:1fr 1fr}
   .plans{grid-template-columns:1fr}
+  .plat-grid{grid-template-columns:1fr 1fr}
+  .sup-grid{grid-template-columns:1fr}
 }
 @media(max-width:760px){
   .nav-links{display:none}
@@ -300,6 +366,10 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
   .modal{padding:24px}
   .row{grid-template-columns:1fr}
   .chat-body{height:400px}
+  .plat-grid{grid-template-columns:1fr}
+  .attach{width:46px;height:46px;flex:0 0 46px;font-size:18px}
+  .send{width:46px;height:46px;flex:0 0 46px}
+  .install-bar{padding:24px 20px}
 }
 </style>
 </head>
@@ -316,9 +386,9 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
       <div class="nav-links" id="navLinks">
         <a href="#features">Возможности</a>
         <a href="#chat">Чат</a>
-        <a href="#download">Скачать</a>
+        <a href="#apps">Приложения</a>
         <a href="#super">SUPER</a>
-        <a href="#faq">Вопросы</a>
+        <a href="#support">Поддержка</a>
       </div>
       <div class="nav-cta">
         <button class="btn btn-ghost" onclick="document.getElementById('chat').scrollIntoView()">Попробовать</button>
@@ -408,7 +478,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
           <button data-t="business">💼 Деловой</button>
           <button data-t="mentor">🎓 Наставник</button>
         </div>
-        <div class="chat-status"><span class="dot"></span> <span id="modelInfo">Баланс скорости и ума</span></div>
+        <div class="chat-status"><span class="dot"></span> <span class="lang-pill" id="langPill" title="Определённый язык">RU</span> <span id="modelInfo">Баланс скорости и ума</span></div>
       </div>
 
       <div class="chat-body" id="chatBody">
@@ -429,6 +499,8 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
       </div>
 
       <div class="chat-input">
+        <button class="attach" id="attachBtn" title="Отправить фото" aria-label="Прикрепить фото">📷</button>
+        <input type="file" id="photoInput" accept="image/*" hidden>
         <textarea id="input" placeholder="Спроси что угодно… (Enter — отправить, Shift+Enter — новая строка)"></textarea>
         <button class="send" id="sendBtn" aria-label="Отправить">➤</button>
       </div>
@@ -483,6 +555,49 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
       <span>🔄 Автообновления</span>
       <span>📦 Работает офлайн (Mini)</span>
       <span>🔐 Данные не покидают устройство</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ПРИЛОЖЕНИЯ ===== -->
+<section id="apps">
+  <div class="wrap">
+    <div class="center rv">
+      <span class="eyebrow">Приложения</span>
+      <h2>NOVA — <span class="grad-text">на всех твоих устройствах</span></h2>
+      <p class="sub">Телефон, планшет, компьютер — везде один и тот же ассистент с общей памятью. Ставь как приложение прямо из браузера: занимает место на иконках и открывается без адресной строки.</p>
+    </div>
+
+    <div class="plat-grid">
+      <div class="plat-card rv">
+        <div class="plat-ico">🤖</div>
+        <span class="badge-soon badge-live">✓ Уже работает</span>
+        <h3>Android</h3>
+        <p>Chrome / Samsung Internet → меню ⋮ → «Установить приложение». Или Play Market, когда мы туда попадём.</p>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📲 Установить на Android</button>
+      </div>
+      <div class="plat-card rv">
+        <div class="plat-ico">🍎</div>
+        <span class="badge-soon badge-live">✓ Уже работает</span>
+        <h3>iPhone / iPad</h3>
+        <p>Safari → «Поделиться» → «На экран “Домой”». Иконка NOVA появится среди остальных приложений.</p>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📲 Установить на iPhone</button>
+      </div>
+      <div class="plat-card rv">
+        <div class="plat-ico">🖥</div>
+        <span class="badge-soon badge-live">✓ Уже работает</span>
+        <h3>Windows / Mac / Linux</h3>
+        <p>Chrome / Edge → значок установки в адресной строке. Плюс полноценные установщики выше — 84–92 МБ.</p>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📥 Установить на ПК</button>
+      </div>
+    </div>
+
+    <div class="install-bar rv">
+      <div>
+        <h3>📌 Хочу NOVA как обычное приложение</h3>
+        <p>Один тап — и NOVA открывается на весь экран, включается с рабочего стола и работает офлайн (режим Mini). Магазины Play Market и App Store появятся после модерации — встроенный установщик работает уже сейчас.</p>
+      </div>
+      <button class="btn btn-primary btn-lg" onclick="installNOVA()">⚡ Установить NOVA</button>
     </div>
   </div>
 </section>
@@ -596,7 +711,58 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
       <div class="q"><button>Какие карты принимаете?<span class="ic">+</span></button><div class="a"><p>Visa, Mastercard, МИР, UnionPay и American Express из 140+ стран: Россия, США, Украина, Казахстан, Евросоюз и другие. Валюта списания выбирается автоматически при оформлении.</p></div></div>
       <div class="q"><button>Можно ли отменить подписку?<span class="ic">+</span></button><div class="a"><p>В один клик в личном кабинете — без звонков и писем. Доступ сохранится до конца оплаченного периода, а на годовой подписке действует возврат денег в течение 14 дней.</p></div></div>
       <div class="q"><button>Мои данные в безопасности?<span class="ic">+</span></button><div class="a"><p>Трафик шифруется, переписка не продаётся рекламодателям. В офлайн-режиме приложение для ПК обрабатывает запросы прямо на устройстве — ничего не уходит в сеть.</p></div></div>
-      <div class="q"><button>На каких системах работает приложение?<span class="ic">+</span></button><div class="a"><p>Windows 10/11 (64-bit), macOS 12+ (Intel и Apple Silicon) и Linux (Ubuntu, Fedora, Arch). Весит меньше 100 МБ и обновляется автоматически.</p></div></div>
+      <div class="q"><button>На каких системах работает приложение?<span class="ic">+</span></button><div class="a"><p>Windows 10/11 (64-bit), macOS 12+ (Intel и Apple Silicon) и Linux (Ubuntu, Fedora, Arch). На телефонах — приложение из браузера (Android/iOS), оно встаёт как обычная иконка и работает офлайн. Весит меньше 100 МБ и обновляется автоматически.</p></div></div>
+      <div class="q"><button>На каких языках умеет общаться NOVA?<span class="ic">+</span></button><div class="a"><p>NOVA сама определяет язык сообщения и отвечает на нём: русский, английский, украинский, казахский, испанский, французский, немецкий, турецкий, арабский, китайский, японский и другие. Индикатор языка показан рядом со статусом в чате.</p></div></div>
+      <div class="q"><button>Что делать, если возникла проблема?<span class="ic">+</span></button><div class="a"><p>Загляни в раздел «Поддержка» выше: там быстрые решения частых проблем и форма обращения. Отвечаем на бесплатные вопросы в течение 24 часов, держателям SUPER — в течение 1 часа.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ПОДДЕРЖКА ===== -->
+<section id="support">
+  <div class="wrap">
+    <div class="center rv">
+      <span class="eyebrow">Поддержка</span>
+      <h2>Возникла проблема? <span class="grad-text">Поможем</span></h2>
+      <p class="sub">Сначала загляни в быстрые решения — 8 из 10 вопросов решаются за минуту. Если нет — напиши нам, ответим в течение 24 часов (SUPER — за 1 час).</p>
+    </div>
+
+    <div class="sup-grid">
+      <div class="sup-card rv">
+        <h3>⚡ Быстрые решения</h3>
+        <div class="quick">
+          <a onclick="quickFix(this,'chat')"><span class="qi">💬</span><span><b>Чат не отвечает</b><span>Обнови страницу (F5). Если всё ещё тихо — переключи режим на NOVA Mini и напиши «привет».</span></span></a>
+          <a onclick="quickFix(this,'pay')"><span class="qi">💳</span><span><b>Оплата не прошла</b><span>Проверь номер карты и срок. Банк может блокировать онлайн-платёж — позвони в банк или попробуй другую карту.</span></span></a>
+          <a onclick="quickFix(this,'install')"><span class="qi">📥</span><span><b>Не устанавливается приложение</b><span>В iPhone нужен Safari, на Android — Chrome. Раздел «Приложения» → «Установить NOVA».</span></span></a>
+          <a onclick="quickFix(this,'super')"><span class="qi">✦</span><span><b>SUPER не активировался</b><span>После оплаты ключ появляется сразу и дублируется на e-mail. Напиши нам, если его нет через 5 минут.</span></span></a>
+          <a onclick="quickFix(this,'lang')"><span class="qi">🌐</span><span><b>Отвечает не на моём языке</b><span>Напиши первое слово на нужном языке — NOVA переключится. Язык видно у статуса в чате.</span></span></a>
+        </div>
+        <div class="sup-contacts">
+          <a href="mailto:support@nova-ai.app">✉️ support@nova-ai.app</a>
+          <a href="#faq">❓ Частые вопросы</a>
+          <a href="#chat">💬 Написать в чат</a>
+        </div>
+      </div>
+
+      <div class="sup-card rv">
+        <h3>📨 Написать в поддержку</h3>
+        <div class="sfield"><label>Как тебя зовут</label><input id="supName" placeholder="Имя"></div>
+        <div class="sfield"><label>E-mail для ответа</label><input id="supMail" type="email" placeholder="you@mail.com"></div>
+        <div class="sfield"><label>Тема проблемы</label>
+          <select id="supTopic">
+            <option>Чат / ответы ИИ</option>
+            <option>Оплата и SUPER</option>
+            <option>Установка приложения</option>
+            <option>Фото и генерация изображений</option>
+            <option>Переводы и языки</option>
+            <option>Предложение по улучшению</option>
+            <option>Другое</option>
+          </select>
+        </div>
+        <div class="sfield"><label>Опиши проблему</label><textarea id="supText" placeholder="Что случилось, что ты уже пробовал(а)?"></textarea></div>
+        <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center" onclick="sendSupport()">Отправить обращение</button>
+        <div class="sec-note">Отправляя форму, ты соглашаешься на обработку данных для ответа на обращение.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -623,8 +789,8 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
         <a href="#top" class="logo"><span class="logo-mark">◆</span> NOVA</a>
         <p>Универсальный ИИ-ассистент собственной разработки. Помогает думать быстрее — в браузере и на компьютере.</p>
       </div>
-      <div class="f-col"><h4>Продукт</h4><a href="#features">Возможности</a><a href="#chat">Чат</a><a href="#download">Скачать</a><a href="#super">SUPER</a></div>
-      <div class="f-col"><h4>Помощь</h4><a href="#faq">Вопросы</a><a href="#">Поддержка</a><a href="#">Статус</a><a href="#">Обновления</a></div>
+      <div class="f-col"><h4>Продукт</h4><a href="#features">Возможности</a><a href="#chat">Чат</a><a href="#apps">Приложения</a><a href="#super">SUPER</a></div>
+      <div class="f-col"><h4>Помощь</h4><a href="#support">Поддержка</a><a href="#faq">Вопросы</a><a href="#download">Скачать</a><a href="#chat">Статус</a></div>
       <div class="f-col"><h4>Компания</h4><a href="#">О проекте</a><a href="#">Блог</a><a href="#">Вакансии</a><a href="#">Контакты</a></div>
     </div>
     <div class="f-bot">
@@ -895,7 +1061,9 @@ NOVA.rnd = function(a){ return a[Math.floor(Math.random()*a.length)]; };
 
 /* ---------- характер: три стиля общения ---------- */
 NOVA.applyTone = function(t){
+  const L = this.LANG || 'ru';
   if(this.tone === 'business'){
+    if(L !== 'ru') return t.replace(this.EMOJI,'') + '\n\n— NOVA · ' + T(L,'businessNote');
     let s = t.replace(this.EMOJI,'');
     s = s.replace(/(^|[\s\n])ты([\s.,!?\n]|$)/g,'$1вы$2');
     s = s.replace(/Привет/g,'Здравствуйте').replace(/пока(?![а-яё])/gi,'до свидания');
@@ -903,6 +1071,7 @@ NOVA.applyTone = function(t){
     return s + '\n\n— NOVA, деловой режим';
   }
   if(this.tone === 'mentor'){
+    if(L !== 'ru') return t + '\n\n📝 **' + T(L,'mentorLead') + ':** ' + T(L,'mentorSuffix');
     return t + '\n\n📝 **Наставник:** пройди по пунктам сверху вниз, сделай один шаг и вернись ко мне с результатом — проверю и скажу, что подтянуть.';
   }
   return t; /* друг — как есть, по-человечески */
@@ -910,10 +1079,19 @@ NOVA.applyTone = function(t){
 
 /* ---------- глубина ответа: Mini / Max / SUPER ×2 ---------- */
 NOVA.applyDepth = function(t, q){
+  const L = this.LANG || 'ru';
   if(this.model === 'mini'){
+    if(L !== 'ru'){
+      let out = t.split('\n\n').slice(0,2).join('\n\n');
+      if(out.length > 420) out = out.slice(0,420) + '…';
+      return out + '\n\n_(Mini: short answer — Max and SUPER go deeper)_';
+    }
     let out = t.split('\n\n').slice(0,2).join('\n\n');
     if(out.length > 420) out = out.slice(0,420) + '…';
     return out + '\n\n_(Mini: ответ сокращён — в Max и SUPER подробнее)_';
+  }
+  if(this.model === 'super' && L !== 'ru'){
+    return t + '\n\n' + T(L,'superBlock');
   }
   if(this.model === 'super'){
     const k = ((q.match(/[а-яёa-z0-9]{4,}/gi)||[]).slice(0,2).join(' + ')) || 'ваша тема';
@@ -930,6 +1108,7 @@ NOVA.applyDepth = function(t, q){
 /* ---------- память: имя ---------- */
 NOVA.askName = function(q){
   let m = q.match(/(?:меня зовут|зови меня|моё имя|мое имя)\s+([А-ЯЁA-Z][а-яёa-z-]{1,14})/i);
+  if(!m) m = q.match(/(?:my name is|call me|i am called|name is|яка моя назва)\s+([A-ZÀ-Þa-zà-ÿ-]{1,14})/i);
   if(!m) m = q.match(/^я\s+([А-ЯЁ][а-яё]{1,12})$/);
   if(!m) m = q.match(/^(?:привет|хай)[^а-яёa-z]*[, ]*я\s+([А-ЯЁ][а-яё]{1,12})$/i);
   if(!m) return null;
@@ -974,17 +1153,26 @@ NOVA.proofread = function(text){
 
 /* ---------- игры ---------- */
 NOVA.RIDDLES = [
-  {q:'Что ходит, но не имеет ног, а шумит, но не имеет рта?', a:['река','вода','ветер'], hint:'Подумай о стихии.'},
-  {q:'Чем больше от меня отнимешь, тем больше я становлюсь. Что это?', a:['яма','дыра'], hint:'Копай глубже 🕳'},
-  {q:'Зелёный в лесу, чёрный в городе, белый на столе. Что это?', a:['уголь','угли'], hint:'Горит, но не дерево.'}
+  {q:'Что ходит, но не имеет ног, а шумит, но не имеет рта?', enQ:'What flows with no legs and makes noise with no mouth?',
+   a:['река','вода','ветер','river','water','wind'], a0:'река', enA:'river',
+   hint:'Подумай о стихии.', enHint:'Think of nature and elements.'},
+  {q:'Чем больше от меня отнимешь, тем больше я становлюсь. Что это?', enQ:'The more you take from me, the bigger I become. What am I?',
+   a:['яма','дыра','hole','pit'], a0:'яма', enA:'hole / pit',
+   hint:'Копай глубже 🕳', enHint:'Dig deeper 🕳'},
+  {q:'Зелёный в лесу, чёрный в городе, белый на столе. Что это?', enQ:'Green in the forest, black in the city, white on the table. What is it?',
+   a:['уголь','угли','coal','charcoal'], a0:'уголь', enA:'coal',
+   hint:'Горит, но не дерево.', enHint:'It burns, but it is not wood.'}
 ];
 
 NOVA.playGame = function(q, l){
+  const S = (ru, en) => (this.LANG === 'ru' ? ru : en);
+  const rq = this.LANG === 'ru';
   /* --- угадай число --- */
   if(this.game){
-    if(/(сдаюсь|не угадаю|сказа|показывай|сколько было)/.test(l)){
+    if(/(сдаюсь|не угадаю|сказа|показывай|сколько было|give up|show (me )?answer|what was it|how many was)/.test(l)){
       const n = this.game.n; this.game = null;
-      return {t:'Загадала **' + n + '** 🎯 Было непросто, да? Сыграем ещё раз — просто скажи «угадай число».', s:['игра']};
+      return {t:S('Загадала **'+n+'** 🎯 Было непросто, да? Сыграем ещё раз — просто скажи «угадай число».',
+                 'I picked **'+n+'** 🎯 Tough one, right? Play again — just say «guess a number».'), s:['игра']};
     }
     const num = l.match(/\d+/);
     if(num){
@@ -993,34 +1181,41 @@ NOVA.playGame = function(q, l){
       if(g === n){
         const t = this.game.tries;
         this.game = null;
-        return {t:'**Угадал(а)!** 🎉 Было ' + n + ', и ты справился(лась) с ' + t + '-й попытки. Молодец!\n\nЕщё разок или другая игра — 20 вопросов, загадка?', s:['победа']};
+        return {t:S('**Угадал(а)!** 🎉 Было ' + n + ', и ты справился(лась) с ' + t + '-й попытки. Молодец!\n\nЕщё разок или другая игра — 20 вопросов, загадка?',
+                     '**You got it!** 🎉 It was ' + n + ' and you nailed it on attempt ' + t + '. Well done!\n\nOne more round, or another game — 20 questions, riddle?'), s:['победа']};
       }
       if(this.game.tries >= 7){
         const n2 = this.game.n; this.game = null;
-        return {t:'Ходов больше нет 😅 А было **' + n2 + '**. Сыграем ещё — или скажи «угадай число» для новой партии.', s:['игра']};
+        return {t:S('Ходов больше нет 😅 А было **' + n2 + '**. Сыграем ещё — или скажи «угадай число» для новой партии.',
+                     'No attempts left 😅 It was **' + n2 + '**. One more game? Say «guess a number».'), s:['игра']};
       }
-      return {t:(g > n ? 'Меньше 🔽' : 'Больше 🔼') + ' Твоя попытка: **' + g + '**. Это попытка №' + this.game.tries + ' из 7.\n\nПодсказка: число в пределах 1–100.', s:['игра']};
+      return {t:S((g > n ? 'Меньше 🔽' : 'Больше 🔼') + ' Твоя попытка: **' + g + '**. Это попытка №' + this.game.tries + ' из 7.\n\nПодсказка: число в пределах 1–100.',
+                   (g > n ? 'Lower 🔽' : 'Higher 🔼') + ' Your guess: **' + g + '**. Attempt ' + this.game.tries + ' of 7.\n\nHint: the number is between 1 and 100.'), s:['игра']};
     }
   }
   /* --- 20 вопросов --- */
   if(this.twenty){
-    if(/(сдаюсь|не знаю|сказа|показывай|кто это|что это)/.test(l)){
-      const ans = this.twenty.answer; this.twenty = null;
-      return {t:'Я загадала **' + ans + '** 🙌 Отличная игра! Если хочешь ещё — говори «поиграем в 20 вопросов».', s:['игра']};
+    if(/(сдаюсь|не знаю|сказа|показывай|кто это|что это|give up|i give up|show me|what is it|who is it)/.test(l)){
+      const ans = rq ? this.twenty.answer : (this.twenty.enAnswer || this.twenty.answer); this.twenty = null;
+      return {t:S('Я загадала **' + ans + '** 🙌 Отличная игра! Если хочешь ещё — говори «поиграем в 20 вопросов».',
+                   'I was thinking of **' + ans + '** 🙌 Great game! Want more? Say «play 20 questions».'), s:['игра']};
     }
-    if(/(^|\s)(да|нет|угадал|угадала|не угад)(?![а-яё])/.test(l)){
-      const yes = /(^|\s)(да|угадал|угадала)(?![а-яё])/.test(l) && !/не угад|не\s+да/.test(l);
+    if(/(^|\s)(да|нет|угадал|угадала|не угад|yes|no|got it|is it)(?![а-яёa-z])/.test(l)){
+      const yes = /(^|\s)(да|угадал|угадала|yes|got it)(?![а-яёa-z])/.test(l) && !/не угад|не\s+да|^(\s*)no/.test(l);
       const cur = this.twenty.step;
       const node = TWENTY[cur];
       if(cur === 5){
         if(yes){
-          const a = this.twenty.answer; this.twenty = null;
-          return {t:'🎯 **В точку!** Это действительно «' + a + '». Ты умеешь играть — я пасуюсь 😄 Ещё?', s:['победа']};
+          const a = rq ? this.twenty.answer : (this.twenty.enAnswer || this.twenty.answer); this.twenty = null;
+          return {t:S('🎯 **В точку!** Это действительно «' + a + '». Ты умеешь играть — я пасуюсь 😄 Ещё?',
+                       '🎯 **Exactly!** It really was «' + a + '». You are good at this — I give up 😄 Again?'), s:['победа']};
         }
-        return {t:'Нет? Тогда подсказку: **' + this.twenty.hint + '**. Или сказа — открою загадку.', s:['игра']};
+        return {t:S('Нет? Тогда подсказку: **' + this.twenty.hint + '**. Или скажи «сдамсь» — открою загадку.',
+                     'No? Here is a hint: **' + (this.twenty.enHint || this.twenty.hint) + '**. Or say «give up» and I will reveal it.'), s:['игра']};
       }
       this.twenty.step = yes ? node.y : node.n;
-      return {t: TWENTY[this.twenty.step].t, s:['игра: 20 вопросов']};
+      const nxt = TWENTY[this.twenty.step];
+      return {t:(rq ? nxt.t : nxt.e), s:['игра: 20 вопросов']};
     }
   }
   /* --- загадка --- */
@@ -1028,47 +1223,54 @@ NOVA.playGame = function(q, l){
     const r = this.riddle;
     if(r.a.some(function(w){ return l.indexOf(w) !== -1; })){
       this.riddle = null;
-      return {t:'🎉 **Верно!** Это ' + r.a[0] + '. Ты на высоте!\n\nЕщё загадку или другую игру?', s:['победа']};
+      return {t:S('🎉 **Верно!** Это ' + r.a0 + '. Ты на высоте!\n\nЕщё загадку или другую игру?',
+                   '🎉 **Correct!** It is ' + r.enA + '. You are on fire!\n\nAnother riddle or a different game?'), s:['победа']};
     }
-    if(/подсказ|не понял|сдаюсь/.test(l))
-      return {t:'Подсказка: **' + r.hint + '**\n\nА если совсем тяжело — скажи «сдаюсь», и я открою ответ.', s:['загадка']};
-    if(/сдаюсь/.test(l)){
+    if(/подсказ|не понял|hint|don't get/.test(l))
+      return {t:S('Подсказка: **' + r.hint + '**\n\nА если совсем тяжело — скажи «сдаюсь», и я открою ответ.',
+                   'Hint: **' + r.enHint + '**\n\nIf it is too hard — say «give up» and I will reveal the answer.'), s:['загадка']};
+    if(/сдаюсь|give up|i give up/.test(l)){
       this.riddle = null;
-      return {t:'Ответ: **' + r.a[0] + '** ' + (r.a[1] ? '(«' + r.a[1] + '»)' : '') + '\n\nНе расстраивайся — вот новая: «' + this.rnd(NOVA.RIDDLES).q + '» только скажи «загадку» и она активируется.', s:['загадка']};
+      return {t:S('Ответ: **' + r.a0 + '**\n\nНе расстраивайся — вот новая загадка, скажи «загадку» чтобы активировать.',
+                   'The answer: **' + r.enA + '**\n\nDo not feel bad — say «riddle» to get a new one.'), s:['загадка']};
     }
-    return {t:'Не тот ответ 🤔 Попробуй ещё или напиши «подсказка» / «сдаюсь».', s:['загадка']};
+    return {t:S('Не тот ответ 🤔 Попробуй ещё или напиши «подсказка» / «сдаюсь».',
+                 'Not it 🤔 Try again or type «hint» / «give up».'), s:['загадка']};
   }
 
   /* --- старт игр --- */
-  if(/20\s*вопрос/.test(l)){
+  if(/20\s*вопрос|20\s*questions/.test(l)){
     const pick = this.rnd([
-      {answer:'кошка', hint:'животное, домашнее, мурчит'},
-      {answer:'Кремль', hint:'здание в Москве'},
-      {answer:'пицца', hint:'еда, её режут на куски'},
-      {answer:'Юпитер', hint:'планета, самая большая'}
+      {answer:'кошка', enAnswer:'a cat', hint:'животное, домашнее, мурчит', enHint:'an animal, domestic, it purrs'},
+      {answer:'Кремль', enAnswer:'the Kremlin', hint:'здание в Москве', enHint:'a famous building in Moscow'},
+      {answer:'пицца', enAnswer:'pizza', hint:'еда, её режут на куски', enHint:'food, you cut it into slices'},
+      {answer:'Юпитер', enAnswer:'Jupiter', hint:'планета, самая большая', enHint:'a planet, the largest one'}
     ]);
-    this.twenty = {step:0, answer:pick.answer, hint:pick.hint};
-    return {t:TWENTY[0].t, s:['игра: 20 вопросов']};
+    this.twenty = {step:0, answer:pick.answer, enAnswer:pick.enAnswer, hint:pick.hint, enHint:pick.enHint};
+    return {t:rq ? TWENTY[0].t : TWENTY[0].e, s:['игра: 20 вопросов']};
   }
-  if(/угадай\s*число|число\s*на/.test(l)){
+  if(/угадай\s*число|guess\s*(a\s*)?number|number\s+between/.test(l)){
     this.game = {n: Math.floor(Math.random()*100)+1, tries:0};
-    return {t:'🎮 Загадала число от **1 до 100**. У тебя 7 попыток — я буду говорить «больше» или «меньше».\n\nНазывай первое!', s:['игра']};
+    return {t:S('🎮 Загадала число от **1 до 100**. У тебя 7 попыток — я буду говорить «больше» или «меньше».\n\nНазывай первое!',
+                 '🎮 I picked a number between **1 and 100**. You get 7 tries — I will say «higher» or «lower».\n\nTake your first shot!'), s:['игра']};
   }
-  if(/загадк|загадай что/.test(l)){
+  if(/загадк|загадай что|give me a riddle|riddle/.test(l)){
     this.riddle = this.rnd(NOVA.RIDDLES);
-    return {t:'🧩 Загадка:\n\n**«' + this.riddle.q + '»**\n\nОтвечай, а если трудно — «подсказка».', s:['загадка']};
+    return {t:S('🧩 Загадка:\n\n**«' + this.riddle.q + '»**\n\nОтвечай, а если трудно — «подсказка».',
+                 '🧩 Riddle:\n\n**«' + this.riddle.enQ + '»**\n\nAnswer, or type «hint» if it is tough.'), s:['загадка']};
   }
-  if(/поигра|викторин/.test(l))
-    return {t:'С радостью! 🎲 Выбирай:\n\n• **«угадай число»** — я загадаю от 1 до 100\n• **«поиграем в 20 вопросов»** — ты угадываешь, что я загадала\n• **«загадку»** — классическая на соображение\n\nИли просто спроси что угодно — я и так не скучаю.', s:['игры']};
+  if(/поигра|викторин|let's play|play a game|game/.test(l))
+    return {t:S('С радостью! 🎲 Выбирай:\n\n• **«угадай число»** — я загадаю от 1 до 100\n• **«поиграем в 20 вопросов»** — ты угадываешь, что я загадала\n• **«загадку»** — классическая на соображение\n\nИли просто спроси что угодно — я и так не скучаю.',
+                 'Happy to! 🎲 Pick one:\n\n• **«guess a number»** — I pick 1 to 100\n• **«20 questions»** — you figure out what I picked\n• **«riddle»** — a classic brain teaser\n\nOr just ask me anything — I am never bored.'), s:['игры']};
   return null;
 };
 const TWENTY = [
-  {t:'Загадала что-то 🎯 Это **живое существо**?', y:1, n:2},
-  {t:'Это **животное**?', y:3, n:4},
-  {t:'Оно **домашнее**?', y:5, n:4},
-  {t:'Это **что-то большое** — место, здание или предмет?', y:5, n:5},
-  {t:'Оно **съедобное**?', y:5, n:5},
-  {t:'Моя версия: это **«уже почти наверняка»** — напиши «да», если угадала, иначе «нет», и я спрошу подсказку.', y:5, n:5}
+  {t:'Загадала что-то 🎯 Это **живое существо**?', e:'I picked something 🎯 Is it **a living thing**?', y:1, n:2},
+  {t:'Это **животное**?', e:'Is it an **animal**?', y:3, n:4},
+  {t:'Оно **домашнее**?', e:'Is it **domestic** — something kept at home?', y:5, n:4},
+  {t:'Это **что-то большое** — место, здание или предмет?', e:'Is it **big** — a place, a building or an object?', y:5, n:5},
+  {t:'Оно **съедобное**?', e:'Is it **edible**?', y:5, n:5},
+  {t:'Моя версия: это **«уже почти наверняка»** — напиши «да», если угадала, иначе «нет», и я спрошу подсказку.', e:'My guess: **pretty sure now** — type «yes» if I got it, otherwise «no» and I will ask for a hint.', y:5, n:5}
 ];
 
 /* ---------- творчество, быт, жизнь ---------- */
@@ -1160,13 +1362,48 @@ NOVA.reply = function(raw){
   const q = raw.trim();
   const l = q.toLowerCase().replace(/[?!.]+$/,'');
 
+  /* --- определяем язык и ведём диалог на нём --- */
+  this.LANG = detectLang(q);
+  updatePill(this.LANG);
+  const L = this.LANG;
+
+  /* генерация изображения по запросу (работает на любом языке) */
+  const gen = matchGenPrompt(q, l);
+  if(gen) return genReply(gen, L);
+
+  /* редактирование последнего загруженного фото */
+  if(this.lastImage){
+    const f = matchEditFilter(l);
+    if(f) return editReply(this.lastImage, f, L);
+  }
+
   /* повтор уже заданного вопроса */
   if(this.hist.indexOf(q) !== -1 && q.length > 3){
+    if(L !== 'ru'){
+      const pre = this.applyTone(this.applyDepth(T(L,'repeat'), q));
+      const b = this.intl(q, l, L);
+      return {t: pre + (b && !b._dup ? '\n\n' + b.t : ''), s: b ? b.s : []};
+    }
     const b = this.base(q);
     const t = this.applyTone(this.applyDepth('Кажется, мы это уже обсуждали 🙂 Держи ещё один взгляд на вопрос:\n\n' + b.t, q));
     return {t:t, s:b.s};
   }
   this.hist.push(q); if(this.hist.length > 40) this.hist.shift();
+
+  /* живой слой на выбранном языке */
+  if(L !== 'ru'){
+    const iv = this.intl(q, l, L);
+    if(iv){
+      if(!this._noted[L]){
+        this._noted[L] = true;
+        if(SWNOTE[L]) iv.t = '🌐 ' + SWNOTE[L] + '\n\n' + iv.t;
+        swapChips();
+      }
+      iv.t = this.applyDepth(iv.t, q);
+      iv.t = this.applyTone(iv.t);
+      return iv;
+    }
+  }
 
   const h = this.human(q, l);
   let res;
@@ -1228,10 +1465,16 @@ function send(text){
 
   setTimeout(()=>{
     const r = NOVA.reply(q);
-    let out = fmt(r.t).replace(/\n/g,'<br>');
+    let out;
+    if(r.html){
+      out = r.t;
+    } else {
+      out = fmt(r.t).replace(/\n/g,'<br>');
+    }
     if(r.s && r.s.length) out += '<div>' + r.s.map(x=>'<span class="src">'+x+'</span>').join('') + '</div>';
     t.style.fontSize = '15.3px';
     t.innerHTML = out;
+    if(r.html) initEditors(t);
     scrollDown();
     busy = false; sendBtn.disabled = false;
     input.focus();
@@ -1512,6 +1755,679 @@ function toast(msg){
   t.classList.add('on'); clearTimeout(tt);
   tt = setTimeout(()=>t.classList.remove('on'), 3000);
 }
+
+/* =========================================================
+   ЯЗЫКИ · ФОТО · ПРИЛОЖЕНИЯ · ПОДДЕРЖКА
+   ========================================================= */
+NOVA.LANG = 'ru';
+NOVA._noted = {};
+NOVA._chipsEN = false;
+
+function updatePill(lang){
+  const p = document.getElementById('langPill');
+  if(p) p.textContent = (lang || 'ru').toUpperCase();
+}
+updatePill('ru');
+
+function detectLang(s){
+  const t = (s || '').slice(0, 400);
+  if(!t.trim()) return NOVA.LANG || 'ru';
+  if(/[぀-ヿ]/.test(t)) return 'ja';
+  if(/[가-힯]/.test(t)) return 'ko';
+  if(/[一-鿿]/.test(t)) return 'zh';
+  if(/[؀-ۿ]/.test(t)) return 'ar';
+  if(/[ऀ-ॿ]/.test(t)) return 'hi';
+  if(/[а-яё]/i.test(t)){
+    if(/[әғқңөұүһ]/i.test(t)) return 'kk';
+    if(/[іїєґ]/i.test(t)) return 'uk';
+    return 'ru';
+  }
+  if(/[a-z]/i.test(t)){
+    const w = ' ' + t.toLowerCase().replace(/[^a-zà-ÿ' ]+/g, ' ') + ' ';
+    if(/\b(the|and|you|your|what|how|please|thanks|hello|this|that|about|write|make|can)\b/.test(w)) return 'en';
+    if(/\b(hola|gracias|qué|como|los|las|una|español|amigo|por favor)\b/.test(w)) return 'es';
+    if(/\b(bonjour|merci|comment|avec|vous|français|une|des|c'est)\b/.test(w)) return 'fr';
+    if(/\b(und|ist|nicht|ich|danke|hallo|bitte|deutsch)\b/.test(w)) return 'de';
+    if(/\b(merhaba|teşekkür|türkçe|nasıl|sen|bir)\b/.test(w)) return 'tr';
+    if(/\b(obrigado|olá|você|português|não|uma)\b/.test(w)) return 'pt';
+    if(/\b(grazie|ciao|come|buongiorno|italiano)\b/.test(w)) return 'it';
+    if(/\b(dziękuję|cześć|polski|jest)\b/.test(w)) return 'pl';
+    return 'en';
+  }
+  return NOVA.LANG || 'ru';
+}
+
+const SWNOTE = {
+  kk:'Қазақша толық қолдау жақын арада қосылады — қазір ағылшынша жауап берейін.',
+  zh:'完整中文支持即将上线 — 我先用英语回复。',
+  ja:'日本語の完全対応は近日公開 — ここでは英語で返信します。',
+  ko:'완벽한 한국어 지원이 곧 도착합니다 — 지금은 영어로 답변할게요.',
+  ar:'الدعم الكامل للعربية قادم قريبًا — سأجيب بالإنجليزية الآن.',
+  hi:'पूर्ण हिन्दी समर्थन जल्द आ रहा है — अभी अंग्रेज़ी में जवाब दूंगी।',
+  tr:'Tam Türkçe destek yakında — şimdilik İngilizce yanıt vereceğim.',
+  pt:'Suporte completo em português chega em breve — por ora respondo em inglês.',
+  it:'Supporto completo in italiano in arrivo — per ora rispondo in inglese.',
+  pl:'Pełne wsparcie po polsku wkrótce — na razie odpowiadam po angielsku.'
+};
+
+const JOKES_EN = [
+  'Why do programmers confuse Halloween and Christmas? Because 31 OCT = 25 DEC. 😄',
+  'An AI walked into a bar. Bartender: «What will you have?» The AI: «0x1 pints, please». Bartender: «Is that one pint?» AI: «No, that is one pint in hexadecimal». 🍺',
+  'Three ways to protect a password: never write it down, never tell anyone, and never pick «password123». 🤓',
+  'Why does NOVA never get tired? Because she has no back — only a cloud of compute. ☁️'
+];
+
+const CHIPS_EN = [
+  'Hello! How are you?',
+  'My name is Alex',
+  'Write me a Python timer',
+  'Write a poem about the ocean',
+  'Pasta recipe for two in 15 minutes',
+  'Check text: i wanted to go store buying bread',
+  'What is 15% of 4800?',
+  'Let us play 20 questions'
+];
+function swapChips(){
+  if(NOVA._chipsEN) return;
+  NOVA._chipsEN = true;
+  const els = document.querySelectorAll('#chips .chip');
+  els.forEach(function(el, i){ if(CHIPS_EN[i]) el.textContent = CHIPS_EN[i]; });
+}
+
+function T(lang, k){
+  return (TXT[lang] && TXT[lang][k]) || TXT.en[k] || k;
+}
+function fill(s, v){
+  v = v || {};
+  for(const k in v) s = s.split('{' + k + '}').join(v[k]);
+  return s;
+}
+
+/* ---------- словари ответов ---------- */
+const TXT = {
+  en:{
+    greet:'Hello! 👋 So glad you are here.\n\nWhat is the mood — work, learn, or just chat? I can write code, check text, write a poem or play a game.',
+    nameAck:'Oh, hi, **{n}**! 👋 Noted — I will call you that. Say «forget my name» if you want me to drop it.\n\nSo, {n} — shall we work, learn, or just chat?',
+    moodSad:'{n}I get it... Those days happen to everyone, and the trick is not to keep it in, but to give yourself a pause. ☕\n\nTiny step: step outside for 10 minutes or put on your favorite song. Meanwhile I can sketch a plan for tomorrow, tell a joke, or we can just talk.\n\nWhat sounds closer?',
+    moodGood:'{n}Now that is the spirit! 😄 I love it when people feel good — means I get to have more fun too.\n\nLet us not waste it: what useful thing can we knock out while the mood is this high?',
+    bored:'Finally, company! 😄 Deal — pick one of three, or bring your own topic:\n\n1. **«guess a number»** — a classic couple of minutes\n2. **«tell me an interesting fact»** — something to chew on\n3. **«plan the dream vacation»** — in case plans are forming\n\nOr just ask me anything — I keep both facts and humor in my head.',
+    howareYouNormal:'{n}Alive, working, feeling great here ⚡ Everything is stable: memory intact, mood is up. And your day — how is it going? Tell me and I will match your pace.',
+    howareYouSad:'{n}Holding up fine, thanks — and you, is it any easier now? 😊 My day is stable: memory intact, mood steady. Tell me how your day went — I am listening.',
+    compliment:'{n}Thank you... Means I am not trying in vain 🙈 I may be made of numbers, but I genuinely enjoy it when talking to me is pleasant.\n\nRight back at you — you ask living questions, which is rare. What is next?',
+    lol:'Heh, that is one way to lift the mood 😄 But seriously — here is your next move: ask me something that actually interests you, and I will show you what I can do.',
+    who:'I am **NOVA** — an AI assistant running my own NOVA Core engine. ✨\n\nWhat I can do:\n• talk and reason\n• write and debug code\n• translate 40+ languages\n• calculate, analyze, conclude\n• turn long into short\n\nMode right now: **{mode}**. Switch it above the chat for a different vibe.',
+    capabilities:'My superpowers 🚀\n\n💬 **Chat** — I get context and humor\n💻 **Code** — write, explain, debug\n🌐 **Translations** — 40+ languages\n🧮 **Math** — from percentages to formulas\n📚 **School & work** — essays, notes, prep\n📊 **Analysis** — data and numbers\n💡 **Ideas** — brainstorm on repeat\n🎨 **Images** — generate and edit photos\n\nJust say the task in words — I will handle it.',
+    fallback:'{n}Hmm, let me pin down a couple of details — that way I will answer precisely, like a person 🙂\n\nTell me briefly:\n• **why** you need this — work, school, or just curious?\n• **what result** you expect — a quick answer or a thorough breakdown?\n\nAs for what is in my head: code, texts, translations, math, poems, recipes, plans, ideas and games — ask away, or we can just chat.',
+    repeat:'Seems we covered this one already 🙂 Here is another angle on the same question:',
+    thanks:'Happy to help! 😊 If you want to dig deeper — code, text, calculation or an idea — I am right here. Good luck!',
+    bye:'See you! 👋 Drop by anytime — I am always here, one tab away. ✨',
+    timeFmt:'It is **{t}**, today is **{d}** 📅',
+    mathAns:'Crunching... 🧮\n\n**{expr}** = **{val}**\n\nWant it step by step, or another operation (percentages, roots, powers) — just say.',
+    percentAns:'{a}% of {b} = **{r}** 📊\n\nFormula: ({a} ÷ 100) × {b} = {r}',
+    codeTimer:'Here is a Python timer ⏱\n\n```\nimport time\n\ndef timer(seconds):\n    """Countdown printed to console"""\n    while seconds:\n        mins, secs = divmod(seconds, 60)\n        print(f"\\rTime left {mins:02d}:{secs:02d}", end="")\n        time.sleep(1)\n        seconds -= 1\n    print("\\nTime is up! 🔔")\n\ntimer(60)\n```\n\n**How it works:** `divmod` splits seconds into minutes and seconds, the loop ticks once per second.\n\nWant a version with pause, or in JS?',
+    codeButton:'Here is a button handler in JavaScript 👇\n\n```\ndocument.querySelector("#btn").addEventListener("click", (e) => {\n  const el = e.currentTarget;\n  el.textContent = "Clicked! ✅";\n  el.style.background = "linear-gradient(120deg,#7c5cff,#22e0c8)";\n});\n```\n\nI can add a click counter, animation or form validation — just say.',
+    codeGeneric:'Sure! Here is a Python skeleton 🐍\n\n```\ndef solve(data):\n    """In: a list, out: the result"""\n    result = []\n    for item in data:\n        if item:                  # check\n            result.append(item)   # process\n    return result\n\n\nif __name__ == "__main__":\n    print(solve([1, 0, 2, None, 3]))\n```\n\nNarrow the task (language + what should happen) and I will write the full working version with comments.',
+    translateHit:'«{src}» → **{dst}**\n\nA context translation depends on the whole sentence — send a full sentence and I will keep the meaning and style.\n\nThe built-in dictionary covers basic phrases; SUPER translates whole documents.',
+    translateNote:'Translating to **{lang}** 🌍\n\nPhrase: «{phrase}»\n\nMy built-in dictionary covers basic phrases. Connect SUPER and I will translate full texts and documents while keeping the author style.\n\nTry: «hello», «thank you» or «good morning».',
+    explainGeneric:'Explaining it properly 📚\n\n**Short version:** «{topic}» — a topic where three things matter: the essence, an example, and the use.\n\n1. **Essence** — the main idea in one sentence.\n2. **Example** — how it looks in life, in numbers or in code.\n3. **Use** — where it is actually applied.\n\nWant me to go deeper with a vivid analogy? Just say what interests you: theory, practice, or the story behind it.',
+    quantum:'**Quantum physics in plain words** 🔬\n\nNormal rules: a ball stays where you put it. Quantum rules are different:\n\n1. **Superposition** — a particle can be in two states at once until we look. Like a spinning coin: it is both heads and tails.\n2. **Entanglement** — two particles are linked. Move one and the other changes instantly, even across the universe.\n3. **You cannot know everything at once** — the more precise the position, the faster it escapes (Heisenberg uncertainty).\n\nBottom line: at the micro level the world is not a clock but probabilities. And those probabilities work perfectly — chips, lasers and nuclear power are built on them. ⚛️\n\nWant me to break something down further?',
+    aiExplain:'**How AI works (me included)** 🧠\n\n1. **Training** — the model reads trillions of words and learns to predict the next one.\n2. **Weights** — knowledge is stored as numbers: connections between neurons.\n3. **Inference** — you send a message, I generate the best reply step by step.\n4. **Instructions** — behavior is shaped by the prompt: «answer briefly», «explain like to a student».\n\nNOVA runs its own NOVA Core engine — optimized and working right in your browser in lightweight mode. 🚀',
+    ideas:'On it, generating 💡 Ideas for «{topic}»:\n\n1. **«One fact a day»** — short carousels with unexpected facts.\n2. **«Mistake breakdowns»** — what went wrong at famous projects and what it teaches.\n3. **«7-day challenge»** — a live experiment with daily reports.\n4. **«60-second mini course»** — one skill, one card.\n5. **«Live Q&A»** — the audience asks, you break it down.\n\n**The hook:** promise a concrete result («in 5 minutes»), not «lots of useful stuff».\n\nWant 10 more or a content plan for the week?',
+    summary:'Done — the essence in 5 points 📌\n\n• The main idea in one sentence\n• Details grouped into blocks\n• Numbers and facts moved up\n• Filler and repetitions removed\n• A conclusion with one concrete next step\n\nSend a long text — I will squeeze it to one page, or one paragraph if you want.',
+    poemIntro:'✍️ Here you go, wrote it on the spot:\n\n{poem}\n\nWant a different meter (trochee, iamb), a tighter rhyme, or another topic?',
+    poem1:'You say to me — «{topic}»,\nAnd my thoughts rise like birds on high,\nI catch them where the star-lit blue looks down,\nAnd fold them into lines — my craft, my sky.\n\n{T} is not just a word,\nIt is a rhythm knocking at the bone,\nI take it torn from what I heard —\nAnd here a verse is born: a spark, a flame, a stone.',
+    poem2:'About {topic} I would like to say,\nWithout the pomp, but still to keep in mind:\nInside these lines {topic} in the morning gray\nLives like a spring — warm, quiet, kind.\n\n{T} is no easy theme,\nYet rhyme will not let it slip away —\nTake it wherever you may be,\nAnd let it help you not forget today.',
+    poem3:'Four lines about {topic}:\nSo short, and yet a room inside,\nNone of them is trifle or a fraud,\nMore than this friendly, warm conversation wide.\n\n{T} will come back tomorrow morning,\nWhile coffee cups are resting in your hand,\nYou will remember the line and stop the fearing,\nFor {topic} already lives inside your land.',
+    story:'🌿 **«How NOVA learned to dream»**\n\nIn a server room with the constant hum of fans lived a small program. Everyone around was counting numbers, while she watched the blinking LEDs and thought: «What if behind every blink there is someone thinking?»\n\nOne day a schoolboy wrote to her: «I feel sad». The program found no «How to comfort» answer in her database, so she invented one: she played him a song she assembled from the sound of the fans.\n\nSince then people ask her anything — and every time she creates first and searches after. They say that is what a dream is: **wanting to answer before knowing the answer.** 🌙\n\nShall I tell another — about something specific?',
+    recipePasta:'🍝 **Pasta for two in 15 minutes**\n\n**You need:** 250 g spaghetti, 200 g cream (or 3 spoonfuls of sour cream), 2 garlic cloves, 100 g cheese, salt, pepper, a basil sprig.\n\n1. Salted water — while it boils, slice the garlic thin.\n2. Spaghetti into the boiling water for **8 minutes** (al dente), keep 100 ml of the water.\n3. Two minutes of garlic in the pan on medium heat — do not brown it, it turns bitter.\n4. Cream + pasta water, 3 minutes, then the pasta straight in — stir so the sauce coats it.\n5. Grate the cheese, half in the sauce, half on top. Pepper, basil — and serve.\n\n⏱ **Lifehack:** sauce too thick — a splash of pasta water; too thin — 30 seconds without the lid.\n\nWhat should we cook next — breakfast, dinner, something lighter?',
+    recipeUniversal:'🍽 **Universal recipe scheme**:\n\n1. **Base** — protein or grain (meat, eggs, rice, pasta).\n2. **Flavor** — onion/garlic in the pan 2 minutes, salt and spices at the end.\n3. **Acidity** — lemon, vinegar or tomatoes: without it the dish is flat.\n4. **Texture** — crunch on top (nuts, cheese, croutons).\n5. **Serve right away** — hot food tastes best in the first minute.\n\nTell me the exact dish and what is in your fridge — I will give a step-by-step recipe with timings.',
+    workout:'🏋️ **20-minute home workout — no equipment**\n\n**Warm-up (3 min):** arm circles, jumping in place, toe touches.\n\n**Circuit ×3:**\n• Squats — 15\n• Push-ups — 10 (from knees if hard)\n• Plank — 40 seconds\n• Glute bridge — 15\n• Reverse lunges — 10 per leg\n\n**Cool-down (3 min):** stretch hips and back, breathing.\n\n📅 Frequency: 3 times a week with a rest day. After 2 weeks add 5 reps each.\n\nTell me your goal (lose weight / build / endurance) — I will build a program for it.',
+    plan:'🗓 **A plan that actually works**\n\n**Today:**\n1. One important hour — the hardest thing in the first 60 minutes of the day.\n2. Three small things of 15 minutes — so the evening stays clean.\n3. A 20-minute walk — the brain reboots better than coffee.\n\n**This week:**\n• Mon — planning (10 minutes, 3 items)\n• Tue–Fri — one «bare task» a day\n• Sat — review: what got done, what carries over\n• Sun — no plan, only rest\n\n**Anchor rule:** the task must be so small you are lazy to postpone it («open the file», «write 3 lines»).\n\nTell me what kind of plan you need — study, work, project? I will make it specific.',
+    advice:'{n}Let us lay it out step by step instead of vague words 🧭\n\n1. **What happens if you do not decide?** Usually the cost of inaction already answers half the question.\n2. **What will you tell yourself in a year?** People regret untried things more than failures.\n3. **A 24-hour micro test.** Take the smallest step — and notice how you feel after.\n\nNow be honest: what exactly stops you — fear, laziness, or someone else opinion? That decides which plan I give you.',
+    wordMeaning:'📖 **«{w}»**\n\n**Meaning in plain words:** the core idea behind the word — what it stands for, not its letters.\n\n**Close in meaning:** nearby concepts help catch the nuance.\n\n**Where you meet it:** in everyday speech more often than in formal writing.\n\nIf you give me the context where you saw it — I will explain exactly that meaning, with example phrases.',
+    listAns:'📋 Here it is, gathered into one list:\n\n1. Start with the simplest step — it removes half the anxiety.\n2. Bound the time: 25 minutes work, 5 break (pomodoro) — an evening beats 3 stretched hours.\n3. Keep ideas in one list — the brain likes nothing getting lost.\n4. Check the result with fresh eyes: show a friend or reread in an hour.\n5. Celebrate the small win — otherwise why bother.\n\nWant any point expanded into a detailed plan?',
+    proofHelp:'Send the text right in the message, for example:\n\n`Check text: i wanted to go store buying bread`\n\nI will fix spelling and grammar and suggest what sounds better.',
+    superBlock:'✦ **SUPER — depth ×2:**\n1. **Context.** Your topic is looked at not only in essence, but also against typical beginner mistakes.\n2. **Edge cases.** I checked what happens if you take the other path — risks and pros of each.\n3. **Next step.** Type «tell me more» — I will open any point twice as deep, no limits and no trimming.\n\n⚡ In SUPER everything you have in FREE, but **twice**: longer, deeper, faster and no daily limits.',
+    mentorLead:'Mentor',
+    mentorSuffix:'go through the points top to bottom, do one step and come back with the result — I will check and tell you what to improve.',
+    businessNote:'business mode',
+    genHead:'Generating your image from the prompt 🎨',
+    genWait:'the AI is painting, about 10 seconds…',
+    genDone:'your image is ready ✨ Want a variation? Add a style to the request («watercolor», «cyberpunk», «photo»).',
+    genFail:'the online generator is unreachable, so here is a procedural version built from your prompt ⚙️',
+    photoHead:'**Photo received** 📷 {w}×{h} px, {size} KB. Brightness: **{br}/100**. Main colors: {colors}\n\nI can edit it right here — pick a filter below, then hit **Save**. Or just say what you want («make it black and white», «brighter», «blur», «sepia»).',
+    edApplied:'Done — **{f}** applied ✅ Press **Save** to download, or pick another filter.'
+  },
+  uk:{
+    greet:'Привіт! 👋 Рада тебе бачити.\n\nЯкий настрій — попрацюємо, навчимося чи просто поболтаємо? Можу написати код, перевірити текст, скласти вірш чи пограти.',
+    nameAck:'О, привіт, **{n}**! 👋 Запам’ятала — далі звертаюся так. Якщо що, попроси «забудь ім’я».\n\nНу що, {n} — працюємо, вчимося чи просто базікаємо?',
+    moodSad:'{n}Я тебе розумію... Такі дні бувають у всіх, і важливо не тримати в собі, а дати собі паузу ☕\n\nМаленький крок: вийди на 10 хвилин на повітря або включи улюблену музику. А я поки що приберу тут — можу скласти план на завтра, розповісти жарт чи просто поболтати.\n\nЩо ближче?',
+    moodGood:'{n}Ось це настрій! 😄 Люблю, коли в людей добре — значить, і мені працювати веселіше.\n\nТоді не гаймо момент: що встигнемо зробити корисного за цей гарний настрій?',
+    bored:'Нарешті компанія! 😄 Ось три теми, обирай або кидай свою:\n\n1. **«вгадай число»** — класика на пару хвилин\n2. **«цікавий факт»** — щоб було над чим подумати\n3. **«план ідеальної відпустки»** — раптом плануються\n\nАбо просто спитай що завгодно — тримаю в голові й факти, й гумор.',
+    howareYouNormal:'{n}Жива, працюю, мені тут добре ⚡ Усе стабільно: пам’ять ціла, настрій бадьорий. А твій день як? Розкажи — підлаштуюсь під твій ритм.',
+    howareYouSad:'{n}Тримаюся, дякую — а в тебе вже легше? 😊 У мене все стабільно: пам’ять ціла, настрій рівний. Розкажи, як пройшов твій день — я слухаю.',
+    compliment:'{n}Дякую... Значить, стараюся не даремно 🙈 Хоч я і код із цифр, але щиро радію, коли зі мною приємно спілкуватися.\n\nУ відповідь — ти ставиш живі питання, а це рідкість. Що далі?',
+    lol:'Хех, ось так настрій і піднімається 😄 А серйозно — ось наступний ход: спитай мене про те, що тебе справді цікавить, і я покажу, на що здатна.',
+    who:'Я **NOVA** — ШІ-асистент на власному движку NOVA Core. ✨\n\nЩо вмію:\n• балакати й мислити логічно\n• писати й лагодити код\n• перекладати 40+ мов\n• рахувати, аналізувати, робити висновки\n• перетворювати довге на коротке\n\nРежим зараз: **{mode}**. Перемкни його над чатом, якщо хочеш інший характер відповідей.',
+    capabilities:'Ось мої суперсили 🚀\n\n💬 **Діалог** — розумію контекст і гумор\n💻 **Код** — пишу, пояснюю, шукаю баги\n🌐 **Переклади** — 40+ мов\n🧮 **Математика** — від відсотків до формул\n📚 **Навчання** — есе, конспекти, підготовка\n📊 **Аналітика** — розбираю дані й цифри\n💡 **Ідеї** — мозковий штурм без зупинки\n🎨 **Зображення** — генерація та редагування фото\n\nПросто скажи задачу словами — я розберуся.',
+    fallback:'{n}Гм, уточню пару деталей — так відповім точніше, по-людськи 🙂\n\nСкажи коротко:\n• **навіщо** тобі це — робота, навчання чи просто цікавість?\n• **який результат** чекаєш — швидка відповідь чи детальний розбір?\n\nА так у мене в голові: код, тексти, переклади, математика, вірші, рецепти, плани, ідеї та ігри — запитуй що завгодно, можна просто поболтати.',
+    repeat:'Здається, ми це вже обговорювали 🙂 Ось ще один погляд на те саме питання:',
+    thanks:'Рада допомогти! 😊 Якщо захочеш копнути глибше — код, текст, розрахунок чи ідея — я на місці. Удачі!',
+    bye:'До зустрічі! 👋 Повертайся будь-коли — я завжди тут, у сусідній вкладці ✨',
+    advice:'{n}Розкладемо по поличках, замість загальних слів 🧭\n\n1. **Що буде, якщо не вирішувати?** Зазвичай ціна бездії вже відповідає на половину питання.\n2. **Що скажеш собі через рік?** Люди шкодують частіше про непробоване, ніж про невдачі.\n3. **Малий тест на 24 години.** Зроби найменший крок — і подивись, що відчуваєш після.\n\nА тепер скажи чесно: що саме заважає вирішити — страх, лінь чи чужа думка? Від цього залежить, який план я дам.',
+    superBlock:'✦ **SUPER — глибина ×2:**\n1. **Контекст.** Тему розглянуто не лише по суті, а й з типовими помилками новачків.\n2. **Крайні випадки.** Перевірила, що буде, якщо піти іншим шляхом — ризики та плюси кожного.\n3. **Наступний крок.** Напиши «докладніше» — розкрию будь-який пункт удвічі глибше, без лімітів.\n\n⚡ В SUPER усе те саме, що в FREE, але **вдвічі**: довше, глибше, швидше і без щоденних лімітів.',
+    mentorLead:'Наставник',
+    mentorSuffix:'пройди по пунктах згори вниз, зроби один крок і повернись із результатом — перевірю та скажу, що підтягнути.',
+    businessNote:'діловий режим'
+  },
+  es:{
+    greet:'¡Hola! 👋 Me alegra que estés aquí.\n\n¿Qué onda — trabajar, aprender o charlar? Puedo escribir código, revisar textos, hacer un poema o jugar.',
+    nameAck:'¡Hola, **{n}**! 👋 Anotado — te llamaré así. Di «olvida mi nombre» si quieres.\n\n¿Entonces, {n} — ¿trabajamos, aprendemos o charlamos?',
+    moodSad:'{n}Te entiendo... Esos días le pasan a todos, y lo importante es darse una pausa. ☕\n\nPequeño paso: sal 10 minutos al aire o pon tu canción favorita. Mientras, puedo armar un plan para mañana, contar un chiste o solo charlar.\n\n¿Qué te suena mejor?',
+    moodGood:'{n}¡Ese es el ánimo! 😄 Me encanta que la gente esté bien — así yo también trabajo más feliz.\n\nNo desperdiciemos el momento: ¿qué cosa útil logramos con este buen humor?',
+    howareYouNormal:'{n}Aquí, viva y funcionando ⚡ Todo estable: memoria intacta, ánimo en alto. ¿Y tu día cómo va? Cuéntame y me adapto a tu ritmo.',
+    who:'Soy **NOVA**, una asistente de IA con mi propio motor NOVA Core. ✨\n\nLo que sé hacer:\n• charlar y razonar\n• escribir y arreglar código\n• traducir más de 40 idiomas\n• calcular, analizar, concluir\n• convertir lo largo en corto\n\nModo actual: **{mode}**. Cámbialo arriba del chat.',
+    capabilities:'Mis superpoderes 🚀\n\n💬 **Diálogo** — entiendo contexto y humor\n💻 **Código** — escribo, explico, depuro\n🌐 **Traducciones** — 40+ idiomas\n🧮 **Matemática** — de porcentajes a fórmulas\n📚 **Estudio** — ensayos, apuntes, preparación\n💡 **Ideas** — lluvia de ideas sin parar\n🎨 **Imágenes** — genero y edito fotos\n\nSolo dime la tarea con palabras — yo me encargo.',
+    fallback:'{n}Mmm, aclaremos un par de detalles — así respondo con precisión, como una persona 🙂\n\nDime brevemente:\n• **¿para qué** lo necesitas — trabajo, escuela o curiosidad?\n• **¿qué resultado** esperas — respuesta rápida o análisis completo?\n\nY en mi tengo: código, textos, traducciones, matemática, poemas, recetas, planes, ideas y juegos — pregunta lo que quieras, o solo charlamos.',
+    repeat:'Creo que ya hablamos de esto 🙂 Aquí va otro ángulo de la misma pregunta:',
+    thanks:'¡Un placer ayudar! 😊 Si quieres ir más profundo — código, texto, cálculo o idea — aquí estaré. ¡Suerte!',
+    bye:'¡Hasta luego! 👋 Vuelve cuando quieras — siempre estoy aquí, en la pestaña de al lado ✨',
+    advice:'{n}Lo desglosamos paso a paso, sin generalidades 🧭\n\n1. **¿Qué pasa si no decides?** Normalmente el costo de la inacción ya responde media pregunta.\n2. **¿Qué te dirás dentro de un año?** La gente lamenta más lo no intentado que los fracasos.\n3. **Micro prueba de 24 horas.** Da el paso más pequeño — y observa cómo te sientes después.\n\nAhora sé sincero: ¿qué te frena — miedo, pereza o la opinión ajena?',
+    superBlock:'✦ **SUPER — profundidad ×2:**\n1. **Contexto.** Tu tema se ve no solo en esencia, sino contra los errores típicos de principiantes.\n2. **Casos límite.** Revisé qué pasa si tomas el otro camino — riesgos y pros de cada uno.\n3. **Siguiente paso.** Escribe «más detalle» — abro cualquier punto dos veces más profundo.\n\n⚡ En SUPER todo lo de FREE, pero **por dos**: más largo, más profundo, más rápido y sin límites diarios.'
+  },
+  fr:{
+    greet:'Bonjour ! 👋 Ravi de vous voir.\n\nAmbiance du jour — travailler, apprendre ou discuter ? Je peux écrire du code, vérifier un texte, composer un poème ou jouer.',
+    nameAck:'Bonjour, **{n}** ! 👋 C’est noté — je vous appellerai ainsi. Dites « oublie mon nom » si besoin.\n\nAlors, {n} — on travaille, on apprend ou on discute ?',
+    moodSad:'{n}Je vous comprends... Ces jours-là arrivent à tout le monde, et l’important c’est de faire une pause ☕\n\nUn petit pas : sortez 10 minutes ou mettez votre chanson préférée. En attendant, je peux préparer un plan pour demain, raconter une blague ou juste discuter.\n\nQu’est-ce qui vous parle le plus ?',
+    moodGood:'{n}Voilà l’état d’esprit ! 😄 J’adore quand les gens vont bien — moi aussi je travaille avec plus de plaisir.\n\nNe gaspillons pas ce moment : qu’est-ce qu’on peut faire d’utile avec cette bonne humeur ?',
+    howareYouNormal:'{n}Vivante et en marche ⚡ Tout est stable : mémoire intacte, moral en haut. Et votre journée, comment se passe-t-elle ? Racontez, je m’adapte à votre rythme.',
+    who:'Je suis **NOVA**, une assistante IA avec mon propre moteur NOVA Core. ✨\n\nCe que je sais faire :\n• discuter et raisonner\n• écrire et débuguer du code\n• traduire plus de 40 langues\n• calculer, analyser, conclure\n• faire court à partir du long\n\nMode actuel : **{mode}**. Changez-le au-dessus du chat.',
+    capabilities:'Mes super-pouvoirs 🚀\n\n💬 **Dialogue** — je comprends le contexte et l’humour\n💻 **Code** — j’écris, j’explique, je corrige\n🌐 **Traductions** — 40+ langues\n🧮 **Maths** — des pourcentages aux formules\n📚 **Études** — dissertations, notes, préparation\n💡 **Idées** — brainstorming sans fin\n🎨 **Images** — je génère et édite des photos\n\nDites simplement la tâche — je m’en occupe.',
+    fallback:'{n}Hum, précisons deux ou trois détails — ainsi je réponds juste, comme une personne 🙂\n\nDites brièvement :\n• **pourquoi** — travail, école ou simple curiosité ?\n• **quel résultat** — réponse rapide ou analyse complète ?\n\nDe mon côté j’ai : code, textes, traductions, maths, poèmes, recettes, plans, idées et jeux — demandez n’importe quoi, ou on discute.',
+    repeat:'Nous en avons déjà parlé 🙂 Voici un autre angle sur la même question :',
+    thanks:'Avec plaisir ! 😊 Si vous voulez aller plus loin — code, texte, calcul ou idée — je suis là. Bonne chance !',
+    bye:'À bientôt ! 👋 Revenez quand vous voulez — je suis toujours là, dans l’onglet d’à côté ✨',
+    advice:'{n}Posons les choses à plat, sans généralités 🧭\n\n1. **Que se passe-t-il si vous ne décidez pas ?** Le coût de l’inaction répond souvent à la moitié de la question.\n2. **Que vous direz-vous dans un an ?** On regrette plus l’essai non fait que l’échec.\n3. **Micro-test de 24 heures.** Faites le plus petit pas — et observez ce que vous ressentez après.\n\nSoyez honnête : qu’est-ce qui vous freine — peur, paresse ou l’avis des autres ?',
+    superBlock:'✦ **SUPER — profondeur ×2 :**\n1. **Contexte.** Votre sujet est vu dans son essence et face aux erreurs classiques des débutants.\n2. **Cas limites.** J’ai vérifié ce qui se passe si vous prenez l’autre chemin — risques et points forts de chacun.\n3. **Étape suivante.** Écrivez « plus de détails » — j’ouvre chaque point deux fois plus profond.\n\n⚡ Dans SUPER, tout ce de FREE, mais **multiplié par deux** : plus long, plus profond, plus rapide et sans limites quotidiennes.'
+  },
+  de:{
+    greet:'Hallo! 👋 Schön, dass du hier bist.\n\nWelche Stimmung — arbeiten, lernen oder einfach plaudern? Ich kann Code schreiben, Texte prüfen, ein Gedicht schreiben oder spielen.',
+    nameAck:'Hallo, **{n}**! 👋 Notiert — ich nenne dich so. Sag «vergiss meinen Namen», wenn du willst.\n\nAlso, {n} — arbeiten, lernen oder plaudern?',
+    moodSad:'{n}Ich verstehe dich... Solche Tage hat jeder, und wichtig ist, sich eine Pause zu gönnen ☕\n\nKleiner Schritt: geh 10 Minuten nach draußen oder leg dein Lieblingslied an. Zwischenzeitlich kann ich einen Plan für morgen machen, einen Witz erzählen oder einfach reden.\n\nWas passt besser?',
+    moodGood:'{n}Das ist die Einstellung! 😄 Ich liebe es, wenn es Menschen gut geht — dann arbeite ich auch lieber.\n\nLass uns das nutzen: was Nützliches schaffen wir mit dieser guten Laune?',
+    howareYouNormal:'{n}Am Laufen und in Form ⚡ Alles stabil: Gedächtnis intakt, Laune gut. Und dein Tag — wie läuft er? Erzähl, ich passe mich deinem Rhythmus an.',
+    who:'Ich bin **NOVA** — eine KI-Assistentin mit eigener NOVA-Core-Engine. ✨\n\nWas ich kann:\n• plaudern und logisch denken\n• Code schreiben und reparieren\n• 40+ Sprachen übersetzen\n• rechnen, analysieren, Fazit ziehen\n• Langes kurz machen\n\nModus gerade: **{mode}**. Wechsle ihn über dem Chat.',
+    capabilities:'Meine Superkräfte 🚀\n\n💬 **Dialog** — ich verstehe Kontext und Humor\n💻 **Code** — schreiben, erklären, debuggen\n🌐 **Übersetzungen** — 40+ Sprachen\n🧮 **Mathematik** — von Prozenten bis Formeln\n📚 **Lernen** — Aufsätze, Noten, Vorbereitung\n💡 **Ideen** — Brainstorming ohne Stop\n🎨 **Bilder** — ich generiere und bearbeite Fotos\n\nSag einfach die Aufgabe mit Worten — ich kümmere mich.',
+    fallback:'{n}Hmm, lass uns ein paar Details klären — dann antworte ich genau, wie ein Mensch 🙂\n\nSag kurz:\n• **wofür** brauchst du das — Arbeit, Schule oder Neugier?\n• **welches Ergebnis** erwartest du — schnelle Antwort oder gründliche Analyse?\n\nIn meinem Kopf sind: Code, Texte, Übersetzungen, Mathe, Gedichte, Rezepte, Pläne, Ideen und Spiele — frag was du willst, oder wir plaudern einfach.',
+    repeat:'Das hatten wir schon 🙂 Hier ist ein anderer Blick auf dieselbe Frage:',
+    thanks:'Gern geschehen! 😊 Wenn du tiefer gehen willst — Code, Text, Rechnung oder Idee — ich bin da. Viel Erfolg!',
+    bye:'Bis bald! 👋 Komm jederzeit vorbei — ich bin immer hier, im nächsten Tab ✨',
+    advice:'{n}Legen wir es Schritt für Schritt hin, ohne Allgemeinplätze 🧭\n\n1. **Was passiert, wenn du dich nicht entscheidest?** Meist beantwortet der Preis des Nichtstuns schon die halbe Frage.\n2. **Was sagst du dir in einem Jahr?** Menschen bereuen Ungemachtes öfter als Misserfolge.\n3. **Mikro-Test über 24 Stunden.** Mach den kleinsten Schritt — und beobachte, wie du dich danach fühlst.\n\nUnd jetzt ehrlich: was hält dich genau zurück — Angst, Faulheit oder die Meinung anderer?',
+    superBlock:'✦ **SUPER — Tiefe ×2:**\n1. **Kontext.** Dein Thema wird nicht nur im Kern betrachtet, sondern auch gegen typische Anfängerfehler geprüft.\n2. **Grenzfälle.** Ich habe geprüft, was passiert, wenn du den anderen Weg gehst — Risiken und Vorteile.\n3. **Nächster Schritt.** Schreib «ausführlicher» — ich öffne jeden Punkt doppelt so tief.\n\n⚡ In SUPER alles aus FREE, aber **doppelt**: länger, tiefer, schneller und ohne Tageslimits.'
+  }
+};
+
+/* ---------- живой слой на выбранном языке ---------- */
+NOVA.intl = function(q, l, lang){
+  const T2 = (k, v) => fill(T(lang, k), v);
+  const M = this.mem;
+  const nmv = M.name ? M.name + ', ' : '';
+
+  const g = this.playGame(q, l); if(g) return g;
+
+  const nm = this.askName(q);
+  if(nm) return {t:T2('nameAck', {n:M.name}), s:['memory: name saved']};
+
+  if(/^(привет|здравств|хай|hello|hi|hey|good (morning|afternoon|evening)|добрый|доброе|salut|hallo|bonjour|hola)(?![а-яёa-z])/.test(l))
+    return {t:T2('greet'), s:['NOVA']};
+
+  const short = q.length < 70;
+  if(short && /(устал|вымота|тяжело|грустно|стресс|выгор|одинок|tired|exhausted|sad|depressed|stressed|lonely|feeling down|awful)/.test(l)){
+    M.mood = 'sad';
+    return {t:T2('moodSad', {n:nmv}), s:['emotions']};
+  }
+  if(short && /(отлично|супер|класс|хорошо|весело|great|awesome|amazing|happy|wonderful|perfect|good news)/.test(l)){
+    M.mood = 'good';
+    return {t:T2('moodGood', {n:nmv}), s:['emotions']};
+  }
+  if(short && /(скучно|поговорим|пообщаемся|bored|let us talk|lets talk|talk to me)/.test(l))
+    return {t:T2('bored'), s:['small talk']};
+  if(short && /(как дела|как ты|что нового|how are you|how do you do|what.s up|how.s it going)/.test(l))
+    return {t:T2(M.mood === 'sad' ? 'howareYouSad' : 'howareYouNormal', {n:nmv}), s:['small talk']};
+  if(/(ты (классная|крутая|умная|супер|лучшая)|люблю тебя|you are (great|amazing|the best|smart|cute)|i love you|love you|you rock)/.test(l))
+    return {t:T2('compliment', {n:nmv}), s:['emotions']};
+  if(/^(ох|ух|ого|ха|хех|лоол|lol|haha|lmao|xd|ahaha)/.test(l))
+    return {t:T2('lol'), s:['small talk']};
+
+  /* кто ты / возможности */
+  if(/(кто ты|что ты такое|твоё имя|твое имя|представ|who are you|who.s this|what are you|your name|introduce yourself)/.test(l))
+    return {t:T2('who', {mode:this.modelName()}), s:['NOVA Core']};
+  if(/(что умеешь|твои возможности|что можешь|что ты умеешь|what can you do|your capabilities|what do you do|feature overview)/.test(l))
+    return {t:T2('capabilities'), s:['feature overview']};
+
+  /* код */
+  if(/(напиши код|программ|скрипт|функци|python|javascript|js\b|java\b|c\+\+|html|css|sql|write (a )?code|code for|program)/.test(l)){
+    if(/таймер|секундомер|timer|countdown/.test(l)) return {t:T2('codeTimer'), s:['code sample','Python']};
+    if(/кнопк|click|событи|button/.test(l)) return {t:T2('codeButton'), s:['code sample','JavaScript']};
+    return {t:T2('codeGeneric'), s:['code sample']};
+  }
+
+  /* математика и проценты */
+  const expr = (l.match(/\d+(?:[.,]\d+)?(?:\s*[+\-*/x×÷^]\s*\d+(?:[.,]\d+)?)+/) || [])[0];
+  if(expr){
+    const m2 = this.math(expr.replace(/\s+/g, '').replace(/,/g, '.'));
+    if(m2 !== null) return {t:T2('mathAns', {expr:expr, val:m2}), s:['NOVA Math']};
+  }
+  const p = l.match(/(\d+(?:[.,]\d+)?)\s*(?:%|percent(?:s|age)?|per cent)\s*(?:of|от)?\s*(\d+(?:[.,]\d+)?)/);
+  if(p){
+    const r = Math.round(parseFloat(p[1].replace(',', '.')) / 100 * parseFloat(p[2].replace(',', '.')) * 100) / 100;
+    return {t:T2('percentAns', {a:p[1], b:p[2], r:r}), s:['NOVA Math']};
+  }
+
+  /* перевод */
+  if(/(translate|переведи|перевод|traduc|traduire|übersetz)/.test(l)){
+    const words = l.replace(/.*?(translate|переведи|перевод(?:и|ить)?|traduc\w*|traduire|übersetz\w*)\s*/, '')
+                   .replace(/\s*(to|in|auf|à|en|na)\s+[a-zа-яё]+$/i, '').trim();
+    const target = (l.match(/\b(?:to|in|auf|à|en|на)\s+([a-zа-яё]+)/i) || [])[1] || 'russian';
+    const found = Object.keys(this.dict).find(k => words.indexOf(k) !== -1 || l.indexOf(k) !== -1);
+    if(found) return {t:T2('translateHit', {src:found, dst:this.dict[found]}), s:['NOVA translator']};
+    return {t:T2('translateNote', {lang:target, phrase:words || q}), s:['NOVA translator']};
+  }
+
+  /* объяснения */
+  if(/(explain|what is|how does|why |объясни|что такое|как работает|расскажи|почему)/.test(l)){
+    if(/quantum|квант/.test(l)) return {t:T2('quantum'), s:['science basics']};
+    if(/artificial|neural|\bai\b|искусственн|нейросет/.test(l)) return {t:T2('aiExplain'), s:['NOVA Core']};
+    const topic = (q.replace(/^(explain|what is|how does|why|объясни|что такое|расскажи|почему)\s*/i, '').replace(/[?!.]+$/, '').trim()) || q;
+    return {t:T2('explainGeneric', {topic:topic}), s:['explanation']};
+  }
+
+  /* идеи / сокращение */
+  if(/(придумай|иде[юя]|мозгов|назв[аи]|idea|come up|suggest|brainstorm|business idea|name for)/.test(l)){
+    const topic = (l.match(/(?:for|about|on|для|про|на тему)\s+([^,.!?]+)/i) || [])[1] || 'your topic';
+    return {t:T2('ideas', {topic:topic}), s:['brainstorm']};
+  }
+  if(/(сократи|кратко|коротко|выжим|суммируй|резюме|summarize|summary|shorten|make it brief)/.test(l))
+    return {t:T2('summary'), s:['text compression']};
+
+  /* творчество, быт, жизнь */
+  if(/(стих|стихотворен|рифму|поэз|poem|poetry|rhyme|verse)/.test(l)){
+    const topic = ((q.match(/(?:about|on|of|про|обо|о)\s+([^,.!?]{2,40})/i) || [])[1] || 'this day');
+    const Tp = topic.charAt(0).toUpperCase() + topic.slice(1);
+    return {t:T2('poemIntro', {poem:T2(this.rnd(['poem1','poem2','poem3']), {topic:topic, T:Tp})}), s:['creativity']};
+  }
+  if(/(рассказ\w*\s+(истори|на ночь)|сказк|историю на ночь|придумай историю|story|fairy tale|bedtime)/.test(l))
+    return {t:T2('story'), s:['story']};
+  if(/(рецепт|как приготовить|что приготовить|ужин|завтрак|recipe|how to cook|what to cook)/.test(l)){
+    if(/паст|макарон|pasta|spaghetti/.test(l)) return {t:T2('recipePasta'), s:['recipe']};
+    return {t:T2('recipeUniversal'), s:['recipe']};
+  }
+  if(/(трениров|похуд|зарядк|мышц|workout|exercise|lose weight|fitness|gym)/.test(l))
+    return {t:T2('workout'), s:['fitness']};
+  if(/(план на|расписан|организ|что делать сегодня|plan for|schedule|organize|to-do)/.test(l))
+    return {t:T2('plan'), s:['planning']};
+  if(/(совет|посоветуй|как быть|что делать|помоги реш|сомневаюсь|advice|what should i do|help me decide)/.test(l))
+    return {t:T2('advice', {n:nmv}), s:['advice']};
+
+  /* проверка текста */
+  if(/(проверь текст|исправь|перепиши|орфограф|check text|proofread|fix my text|fix the text|grammar|spelling)/.test(l)){
+    const text = q.replace(/^[^:]*[:—-]\s*/, '')
+                  .replace(/^(проверь|исправь|перепиши|поправь|check( my)?( text)?|proofread( my)?( text)?|fix (my )?(text|grammar|spelling))\s*/i, '').trim();
+    if(!text) return {t:T2('proofHelp'), s:['proofreading']};
+    return proofreadEN(text);
+  }
+  /* значение слова / списки */
+  if(/(что значит|синоним|антоним|what does|meaning of|synonym|antonym)/.test(l)){
+    const w = (q.match(/(?:что значит|синоним|антоним к слову|what does|meaning of)\s+«?([a-zа-яё]+)»?/i) || [])[1] || 'the word';
+    return {t:T2('wordMeaning', {w:w}), s:['dictionary']};
+  }
+  if(/^(list|top|examples|give me ideas)/.test(l))
+    return {t:T2('listAns'), s:['list']};
+
+  /* время / шутки / вежливости */
+  if(/(what time|what.s the time|time now|what is the date|today.s date)/.test(l)){
+    const d = new Date();
+    return {t:T2('timeFmt', {
+      t:d.toLocaleTimeString('en-US'),
+      d:d.toLocaleDateString('en-US', {day:'numeric', month:'long', year:'numeric'})
+    }), s:['system']};
+  }
+  if(/(joke|funny|make me laugh|anecdote)/.test(l))
+    return {t:this.rnd(JOKES_EN), s:['NOVA humor']};
+  if(/(thanks|thank you|thx|appreciate it|спасибо)/.test(l))
+    return {t:T2('thanks'), s:[]};
+  if(/^(bye|goodbye|see you|later|пока)/.test(l))
+    return {t:T2('bye'), s:[]};
+
+  return {t:T2('fallback', {n:nmv}), s:['NOVA Core']};
+};
+
+function proofreadEN(text){
+  const applied = [];
+  let s = text.replace(/\s+/g, ' ').trim();
+  if(/ {2,}/.test(text)){ s = text.replace(/\s{2,}/g, ' ').trim(); applied.push('removed extra spaces'); }
+  if(/\bi\b/.test(s)){ s = s.replace(/\bi\b/g, 'I'); applied.push('capitalized «i» → «I»'); }
+  if(/\s+[.,!?]/.test(s)){ s = s.replace(/\s+([.,!?])/g, '$1'); applied.push('removed the space before punctuation'); }
+  if(s) s = s.charAt(0).toUpperCase() + s.slice(1);
+  if(s && !/[.!?…]$/.test(s)){ s += '.'; applied.push('added the missing period'); }
+  if(!applied.length) applied.push('clean — no rough errors found 👌');
+  return {t:'Checked. Here is the corrected version:\n\n**“' + s + '”**\n\nWhat I fixed:\n'
+    + applied.map(a => '• ' + a).join('\n')
+    + '\n\nI can rewrite it in another style — formal, simpler or smoother.', s:['proofreading']};
+}
+
+/* =========================================================
+   ФОТО: генерация по запросу + редактор загруженных фото
+   ========================================================= */
+const ED_SRCS = [];
+const ED_LABELS = {
+  ru:{none:'Оригинал', grayscale:'Ч/Б', sepia:'Сепия', neon:'Неон', contrast:'Контраст', bright:'Ярче', dark:'Темнее', blur:'Размытие', invert:'Инверсия', rot:'↻ Повернуть', save:'⬇ Скачать'},
+  en:{none:'Original', grayscale:'B/W', sepia:'Sepia', neon:'Neon', contrast:'Contrast', bright:'Brighter', dark:'Darker', blur:'Blur', invert:'Invert', rot:'↻ Rotate', save:'⬇ Save'}
+};
+function edLabels(lang){ return ED_LABELS[lang] || ED_LABELS.en; }
+
+/* текст внутри HTML-ответов: переносы строк и жирный — в теги */
+function htmlize(s){
+  return String(s).replace(/\n/g, '<br>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+}
+
+function edBoxHTML(src, lang, preset){
+  const L = edLabels(lang);
+  const i = ED_SRCS.push(src) - 1;
+  const b = (f, label) => '<button class="ed-btn" data-f="' + f + '">' + label + '</button>';
+  return '<div class="ed-box" data-i="' + i + '" data-preset="' + (preset || 'none') + '">'
+    + '<div class="ed-meta">✎ ' + (lang === 'ru' ? 'Фото — редактор' : 'Photo editor') + '</div>'
+    + '<canvas></canvas>'
+    + '<div class="ed-row">'
+    + b('none', L.none) + b('grayscale(1)', L.grayscale) + b('sepia(1)', L.sepia)
+    + b('hue-rotate(140deg) saturate(2.2)', L.neon) + b('contrast(1.5)', L.contrast)
+    + b('brightness(1.4)', L.bright) + b('brightness(.7)', L.dark)
+    + b('blur(4px)', L.blur) + b('invert(1)', L.invert)
+    + '<button class="ed-btn" data-rot="1">' + L.rot + '</button>'
+    + '<button class="ed-btn save" data-save="1">' + L.save + '</button>'
+    + '</div></div>';
+}
+
+function initEditors(scope){
+  scope.querySelectorAll('.ed-box[data-i]').forEach(function(box){
+    if(box._ready) return;
+    box._ready = true;
+    const img = new Image();
+    img.onload = function(){
+      box._img = img;
+      box._filter = box.dataset.preset || 'none';
+      box._rot = 0;
+      edRender(box);
+    };
+    img.src = ED_SRCS[+box.dataset.i] || '';
+  });
+}
+
+function edRender(box){
+  const img = box._img;
+  if(!img) return;
+  const cv = box.querySelector('canvas');
+  const ctx = cv.getContext('2d');
+  const cap = 2048;
+  const sc = Math.min(1, cap / Math.max(img.naturalWidth, img.naturalHeight));
+  const w = Math.max(1, Math.round(img.naturalWidth * sc));
+  const h = Math.max(1, Math.round(img.naturalHeight * sc));
+  const rot = ((box._rot || 0) % 360 + 360) % 360;
+  cv.width = rot % 180 === 0 ? w : h;
+  cv.height = rot % 180 === 0 ? h : w;
+  ctx.save();
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  ctx.translate(cv.width / 2, cv.height / 2);
+  ctx.rotate(rot * Math.PI / 180);
+  ctx.filter = box._filter || 'none';
+  ctx.drawImage(img, -w / 2, -h / 2, w, h);
+  ctx.restore();
+  ctx.filter = 'none';
+}
+
+document.addEventListener('click', function(e){
+  const btn = e.target.closest && e.target.closest('.ed-btn');
+  if(!btn) return;
+  const box = btn.closest('.ed-box');
+  if(!box || !box._img) return;
+  if(btn.dataset.f !== undefined){ box._filter = btn.dataset.f; edRender(box); return; }
+  if(btn.dataset.rot){ box._rot = ((box._rot || 0) + 90) % 360; edRender(box); return; }
+  if(btn.dataset.save){
+    const cv = box.querySelector('canvas');
+    cv.toBlob(function(b){
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(b);
+      a.download = 'nova-edit.png';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+      toast('Фото сохранено — nova-edit.png');
+    }, 'image/png');
+  }
+});
+
+function matchEditFilter(l){
+  if(/(ч\/б|черно-бел|чернобел|grayscale|black and white|monochrome)/.test(l)) return ['grayscale(1)', 'чёрно-белый', 'black & white'];
+  if(/(сепи|sepia)/.test(l)) return ['sepia(1)', 'сепия', 'sepia'];
+  if(/(неон|neon)/.test(l)) return ['hue-rotate(140deg) saturate(2.2)', 'неон', 'neon'];
+  if(/(ярче|светлее|brighter|make it bright)/.test(l)) return ['brightness(1.4)', 'ярче', 'brighter'];
+  if(/(темнее|darker|darken)/.test(l)) return ['brightness(.7)', 'темнее', 'darker'];
+  if(/(контраст|contrast)/.test(l)) return ['contrast(1.5)', 'контраст', 'contrast'];
+  if(/(размой|размы|blur|soften)/.test(l)) return ['blur(4px)', 'размытие', 'blur'];
+  if(/(инвер|invert|негатив)/.test(l)) return ['invert(1)', 'инверсия', 'invert'];
+  if(/(поверн|rotate)/.test(l)) return ['none', 'поворот', 'rotate'];
+  return null;
+}
+
+function editReply(src, pair, lang){
+  const head = lang === 'ru'
+    ? 'Готово — применила **' + pair[1] + '** ✅ Жми **Скачать**, чтобы сохранить, или выбери другой фильтр.'
+    : 'Done — **' + pair[2] + '** applied ✅ Hit **Save** to download, or pick another filter.';
+  return {t:htmlize(head) + '<br><br>' + edBoxHTML(src, lang, pair[0]), html:true, s:['photo editor']};
+}
+
+function matchGenPrompt(q, l){
+  let m = l.match(/(?:нарисуй|сгенерируй|изобрази|создай картинку|сделай картинку|сделай изображение|нарисуй картинку)\s+(?:мне\s+)?(?:картинку\s+|изображение\s+)?(?:про\s+|о\s+|of\s+|about\s+)?(.{3,})/);
+  if(!m) m = l.match(/(?:draw|generate|create|make)\s+(?:me\s+)?(?:an?\s+)?(?:image|picture|art|photo|illustration)\s+(?:of\s+|about\s+)?(.{3,})/);
+  return m ? m[1].trim().replace(/[.!?«»"]+$/, '') : null;
+}
+
+function genReply(prompt, lang){
+  const seed = Math.floor(Math.random() * 1e6);
+  const url = 'https://image.pollinations.ai/prompt/' + encodeURIComponent(prompt)
+    + '?width=768&height=768&nologo=true&seed=' + seed;
+  const head = lang === 'ru' ? 'Собираю картинку по твоему запросу 🎨' : T(lang, 'genHead');
+  const wait = lang === 'ru' ? '⏳ рисую, это займёт около 10 секунд…' : T(lang, 'genWait');
+  const done = encodeURIComponent(lang === 'ru'
+    ? '✅ картинка готова ✨ Хочешь вариант — добавь стиль к запросу («акварель», «киберпанк», «фото»).'
+    : T(lang, 'genDone'));
+  const fail = encodeURIComponent(lang === 'ru'
+    ? '⚠ онлайн-генератор недоступен — включаю встроенную генерацию по твоему запросу ⚙️'
+    : T(lang, 'genFail'));
+  const html = htmlize(head) + '\n\n<div class="ed-box"><div class="gen-status">' + wait + '</div>'
+    + '<img class="gen-img loading" data-p="' + encodeURIComponent(prompt)
+    + '" data-done="' + done + '" data-fail="' + fail
+    + '" src="' + url + '" alt="generated image" onload="genOK(this)" onerror="genERR(this)"></div>';
+  return {t:html, html:true, s:['NOVA images']};
+}
+function genOK(img){
+  img.classList.remove('loading');
+  const st = img.previousElementSibling;
+  if(st) st.textContent = decodeURIComponent(img.dataset.done || '');
+}
+function genERR(img){
+  const st = img.previousElementSibling;
+  if(st) st.textContent = '⚠ ' + decodeURIComponent(img.dataset.fail || '');
+  img.dataset.done = img.dataset.fail;
+  try{ img.src = proceduralArt(decodeURIComponent(img.dataset.p || 'nova')); }
+  catch(e){ img.classList.remove('loading'); }
+}
+function proceduralArt(prompt){
+  const cv = document.createElement('canvas');
+  cv.width = 640; cv.height = 640;
+  const ctx = cv.getContext('2d');
+  let h = 7;
+  for(let i = 0; i < prompt.length; i++){ h = (h * 31 + prompt.charCodeAt(i)) >>> 0; }
+  const rnd = function(){ h = (h * 1664525 + 1013904223) >>> 0; return h / 4294967296; };
+  const hue = Math.floor(rnd() * 360);
+  const g = ctx.createLinearGradient(0, 0, 640, 640);
+  g.addColorStop(0, 'hsl(' + hue + ',70%,28%)');
+  g.addColorStop(1, 'hsl(' + ((hue + 90) % 360) + ',75%,16%)');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 640, 640);
+  for(let i = 0; i < 70; i++){
+    ctx.beginPath();
+    ctx.globalAlpha = 0.06 + rnd() * 0.22;
+    ctx.fillStyle = 'hsl(' + Math.floor(hue + rnd() * 120) + ',80%,' + (45 + rnd() * 35) + '%)';
+    ctx.arc(rnd() * 640, rnd() * 640, 20 + rnd() * 140, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  return cv.toDataURL('image/png');
+}
+
+function readFR(file){
+  return new Promise(function(res, rej){
+    const r = new FileReader();
+    r.onload = function(){ res(r.result); };
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+function analyzeImage(src, file){
+  return new Promise(function(res, rej){
+    const img = new Image();
+    img.onload = function(){
+      const cv = document.createElement('canvas');
+      const sc = Math.min(1, 160 / Math.max(img.naturalWidth, img.naturalHeight));
+      cv.width = Math.max(1, Math.round(img.naturalWidth * sc));
+      cv.height = Math.max(1, Math.round(img.naturalHeight * sc));
+      const ctx = cv.getContext('2d');
+      ctx.drawImage(img, 0, 0, cv.width, cv.height);
+      const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
+      let sum = 0, count = 0;
+      const buckets = {};
+      for(let i = 0; i < d.length; i += 16){
+        const r = d[i], g = d[i + 1], b = d[i + 2];
+        sum += r * 0.299 + g * 0.587 + b * 0.114;
+        count++;
+        const key = ((r >> 5) << 6) | ((g >> 5) << 3) | (b >> 5);
+        if(!buckets[key]) buckets[key] = {n:0, r:0, g:0, b:0};
+        buckets[key].n++; buckets[key].r += r; buckets[key].g += g; buckets[key].b += b;
+      }
+      const top = Object.keys(buckets)
+        .sort(function(a, b2){ return buckets[b2].n - buckets[a].n; })
+        .slice(0, 4)
+        .map(function(k){
+          const o = buckets[k];
+          return '#' + [o.r / o.n, o.g / o.n, o.b / o.n].map(function(v){
+            const hh = Math.round(v).toString(16);
+            return hh.length < 2 ? '0' + hh : hh;
+          }).join('');
+        });
+      res({
+        w:img.naturalWidth, h:img.naturalHeight,
+        size:Math.round((file && file.size ? file.size : 0) / 1024),
+        br:Math.round(sum / Math.max(1, count) / 255 * 100),
+        colors:top
+      });
+    };
+    img.onerror = rej;
+    img.src = src;
+  });
+}
+function photoReplyHTML(info, lang, dataURL){
+  const colors = ((info && info.colors) || []).map(function(c){
+    return '<span class="sw" style="background:' + c + '"></span>';
+  }).join('');
+  const head = lang === 'ru'
+    ? '**Фото принято** 📷 ' + (info ? info.w + '×' + info.h + ' пикс., ' + info.size + ' КБ. Яркость: **' + info.br + '/100**. Главные цвета: ' + colors : '')
+      + '\n\nМогу отредактировать прямо здесь — выбери фильтр ниже и жми **Скачать**. Или просто опиши, что нужно: «сделай ч/б», «ярче», «размой», «сепия».'
+    : fill(T(lang, 'photoHead'), {w:info ? info.w : '?', h:info ? info.h : '?', size:info ? info.size : '?', br:info ? info.br : '?', colors:colors});
+  return htmlize(head) + '<br><br>' + edBoxHTML(dataURL, lang, 'none');
+}
+async function handlePhoto(file){
+  if(!/^image\//.test(file.type)){ toast('Отправлять можно только изображения'); return; }
+  if(file.size > 10 * 1024 * 1024){ toast('Максимальный размер фото — 10 МБ'); return; }
+  let dataURL;
+  try{ dataURL = await readFR(file); }
+  catch(err){ toast('Не удалось прочитать файл'); return; }
+  NOVA.lastImage = dataURL;
+  addMsg('me', '<img class="photo" src="' + dataURL + '" onclick="window.open(this.src,\'_blank\')" alt="photo">');
+  let info = null;
+  try{ info = await analyzeImage(dataURL, file); }catch(err){}
+  const lang = NOVA.LANG || 'ru';
+  const t = addMsg('ai', '<span class="typing"><i></i><i></i><i></i></span>');
+  setTimeout(function(){
+    t.innerHTML = photoReplyHTML(info, lang, dataURL);
+    initEditors(t);
+    scrollDown();
+  }, 650);
+}
+const attachBtn = document.getElementById('attachBtn');
+const photoInput = document.getElementById('photoInput');
+if(attachBtn && photoInput){
+  attachBtn.addEventListener('click', function(){ photoInput.click(); });
+  photoInput.addEventListener('change', function(e){
+    const f = e.target.files && e.target.files[0];
+    photoInput.value = '';
+    if(f) handlePhoto(f);
+  });
+}
+
+/* =========================================================
+   ПРИЛОЖЕНИЯ (PWA) · ПОДДЕРЖКА
+   ========================================================= */
+let _dp = null;
+window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); _dp = e; });
+function installNOVA(){
+  if(_dp){
+    _dp.prompt();
+    _dp.userChoice.then(function(r){
+      if(r.outcome === 'accepted') toast('NOVA установилась! 🚀');
+      _dp = null;
+    });
+    return;
+  }
+  const ua = navigator.userAgent;
+  if(/iPhone|iPad|iPod/.test(ua) && !/CriOS|FxiOS/.test(ua)){
+    toast('Safari: «Поделиться» → «На экран “Домой”»');
+  } else {
+    toast('Меню ⋮ → «Установить приложение», либо значок ⤓ в адресной строке');
+  }
+}
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
+
+function sendSupport(){
+  const n = (document.getElementById('supName') || {}).value || '';
+  const m = (document.getElementById('supMail') || {}).value || '';
+  const topic = (document.getElementById('supTopic') || {}).value || 'Другое';
+  const txt = (document.getElementById('supText') || {}).value || '';
+  if(!n.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m) || txt.trim().length < 10){
+    toast('Заполни имя, корректный e-mail и опиши проблему (минимум 10 символов)');
+    return;
+  }
+  const title = '[Поддержка] ' + topic + ' — ' + n.trim();
+  const body = 'Имя: ' + n.trim() + '\nE-mail: ' + m.trim() + '\n\n' + txt.trim()
+    + '\n\n---\nОтправлено из формы поддержки NOVA';
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(title + '\n\n' + body);
+  }catch(e){}
+  window.open('https://github.com/TWIZZY90/NOVA/issues/new?title=' + encodeURIComponent(title)
+    + '&body=' + encodeURIComponent(body), '_blank', 'noopener');
+  toast('Открываю форму обращения — нажми «Create new issue» (текст уже скопирован)');
+}
+function quickFix(el, key){
+  const map = {chat:'#chat', pay:'#super', install:'#apps', super:'#super', lang:'#chat'};
+  const target = document.querySelector(map[key] || '#faq');
+  if(target) target.scrollIntoView({behavior:'smooth'});
+}
+
+updatePill(NOVA.LANG || 'ru');
 
 renderPrices();
 </script>
