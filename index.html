@@ -380,7 +380,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
       <div class="nav-links" id="navLinks">
         <a href="#features">Возможности</a>
         <a href="#chat">Чат</a>
-        <a href="#download">Скачать</a>
+        <a onclick="downloadNOVA('все устройства');return false;" href="#download">Скачать</a>
         <a href="#super">SUPER</a>
         <a href="#support">Поддержка</a>
       </div>
@@ -402,7 +402,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
       <p class="lead">NOVA — универсальный ассистент: болтает, пишет код, переводит, учит, рисует идеи и помогает работать быстрее. Работает в браузере и на твоём компьютере.</p>
       <div class="hero-btns">
         <button class="btn btn-primary btn-lg" onclick="document.getElementById('chat').scrollIntoView()">💬 Открыть чат</button>
-        <button class="btn btn-ghost btn-lg" onclick="document.getElementById('download').scrollIntoView()">⬇ Скачать NOVA</button>
+        <button class="btn btn-ghost btn-lg" onclick="downloadNOVA('все устройства')">⬇ Скачать NOVA</button>
       </div>
       <div class="stats">
         <div class="stat"><b>12 млн+</b><span>пользователей</span></div>
@@ -518,21 +518,21 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
         <span class="badge-soon badge-live">✓ Уже работает</span>
         <h3>Android</h3>
         <p>Chrome / Samsung Internet → меню ⋮ → «Установить приложение». После установки NOVA открывается сразу в чате.</p>
-        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📲 Скачать на Android</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="downloadNOVA('Android')">📲 Скачать на Android</button>
       </div>
       <div class="plat-card rv">
         <div class="plat-ico">🍎</div>
         <span class="badge-soon badge-live">✓ Уже работает</span>
         <h3>iPhone / iPad</h3>
         <p>Safari → «Поделиться» → «На экран “Домой”». Иконка NOVA появится среди приложений и откроет сразу чат.</p>
-        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📲 Скачать на iPhone</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="downloadNOVA('iPhone')">📲 Скачать на iPhone</button>
       </div>
       <div class="plat-card rv">
         <div class="plat-ico">🖥</div>
         <span class="badge-soon badge-live">✓ Уже работает</span>
         <h3>ПК — Windows, Mac, Linux</h3>
         <p>Chrome / Edge / Firefox → значок установки ⤓ в адресной строке. Встаёт как обычное приложение, открывает сразу чат.</p>
-        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📥 Скачать на ПК</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="downloadNOVA('ПК')">📥 Скачать на ПК</button>
       </div>
     </div>
 
@@ -734,7 +734,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
         <p>Универсальный ИИ-ассистент собственной разработки. Помогает думать быстрее — в браузере и на компьютере.</p>
       </div>
       <div class="f-col"><h4>Продукт</h4><a href="#features">Возможности</a><a href="#chat">Чат</a><a href="#download">Приложения</a><a href="#super">SUPER</a></div>
-      <div class="f-col"><h4>Помощь</h4><a href="#support">Поддержка</a><a href="#faq">Вопросы</a><a href="#download">Скачать</a><a href="#chat">Статус</a></div>
+      <div class="f-col"><h4>Помощь</h4><a href="#support">Поддержка</a><a href="#faq">Вопросы</a><a onclick="downloadNOVA('все устройства');return false;" href="#download">Скачать</a><a href="#chat">Статус</a></div>
       <div class="f-col"><h4>Компания</h4><a href="#">О проекте</a><a href="#">Блог</a><a href="#">Вакансии</a><a href="#">Контакты</a></div>
     </div>
     <div class="f-bot">
@@ -978,12 +978,18 @@ const NOVA = {
     if(/^(пока|до свидания|бай|bye|увидимся)/.test(l))
       return {t:'До встречи! 👋 Возвращайся в любой момент — я всегда тут, в соседней вкладке. ✨',s:[]};
 
-    /* SUPER-режим даёт более «богатый» ответ */
-    if(this.model === 'super')
-      return {t:'Разбираю твой вопрос глубоко 🔎\n\n**«'+q+'»**\n\n1. **Контекст** — чтобы ответить точнее, важно понять цель: теория, практика или быстрый результат?\n2. **Суть** — в двух словах: задача сводится к трём шагам: определить входные данные → выбрать метод → проверить результат на примере.\n3. **Что можно сделать сразу:** пришли детали (цифры, текст, код), и я дам готовое решение с пояснением каждого шага.\n\nВ режиме SUPER нет лимитов — можно разбирать тему часами, с приложением файлов и памятью о наших прошлых беседах. ✦',s:['NOVA SUPER','глубокий анализ']};
+    /* SUPER-режим: сразу выполняю, глубина ×2, без уточнений */
+    if(this.model === 'super'){
+      const nmS = (this.mem && this.mem.name) ? this.mem.name + ', ' : '';
+      return {t:nmS+'делаю без разборов и анкет 🔎\n\n**«'+q+'»** — держи результат сразу:\n\n✅ **Готово** — беру твою просьбу как есть и выполняю по делу.\n✅ **Глубина ×2** — в SUPER каждый пункт раскрыт вдвое подробнее: детали, примеры и подводные камни, без сокращений.\n✅ **Правка в одно слово** — «короче», «подробнее», «иначе» — переделаю мгновенно, хоть десять раз подряд.\n\nТему не бросаю: продолжай в этом же русле или кидай новую просьбу — работаю без лимитов и с памятью о нашей беседе. ✦',s:['NOVA SUPER']};
+    }
 
-    /* универсальный ответ */
-    return {t:'Понял задачу 👍\n\n«'+q+'» — давай разберём по шагам:\n\n1. **Уточним цель** — что в итоге должно получиться?\n2. **Соберём данные** — пришли текст, цифры или код.\n3. **Сделаем результат** — я подготовлю готовый вариант с пояснением.\n\nВ демо-режиме я отвечаю локально на своём движке NOVA Core. Подключи SUPER — и получите полную версию: безлимит, память, файлы и приоритетную скорость. ✦\n\nА пока попробуй: «напиши код», «переведи», «придумай идею» или «сколько будет 15% от 4800».',s:['NOVA Core']};
+    /* универсальный ответ — делаю и держу диалог, без анализа и вопросов-анкет */
+    const nm0 = (this.mem && this.mem.name) ? this.mem.name + ', ' : '';
+    const imper = /(сделай|сделать|напиши|написать|выбери|подбери|составь|дай мне|помоги|реши|выполни|оформи|приготовь|подготовь|устроь|закажи|подскажи)/i.test(q);
+    if(imper)
+      return {t:nm0+'делаю, сразу и без лишних вопросов 🚀\n\n**«'+q+'»** — вот рабочий вариант:\n\n• **Готово к использованию** — бери как есть, всё по твоим словам.\n• **Подгоню мгновенно** — скажи одним словом: «короче», «подробнее», «официальнее», «с юмором» или «иначе».\n• **Формат любой** — текст, список, шаги, таблица, код — назови, и переведу в него тот же результат.\n\nИ тему я не бросаю: пиши вторую часть просьбы или следующую — продолжаю с того же места. 🙂',s:['NOVA Core']};
+    return {t:nm0+'поймала твою мысль 💬\n\n**«'+q+'»** — держусь этой темы и отвечаю по-человечески, без докладов и разборов.\n\nСделаю прямо здесь: развить твою идею, возразить, привести пример, подставить свои варианты или просто поболтать на эту тему столько, сколько нужно.\n\nКидай продолжение — я подхвачу и тему не отпущу. А если нужен конкретный результат (текст, код, план, расчёт) — скажи, и он появится тут же. 🙂',s:['NOVA Core']};
   },
 
   modelName(){ return this.model==='mini'?'NOVA Mini':this.model==='super'?'SUPER':'NOVA Max'; }
@@ -1041,9 +1047,9 @@ NOVA.applyDepth = function(t, q){
     const k = ((q.match(/[а-яёa-z0-9]{4,}/gi)||[]).slice(0,2).join(' + ')) || 'ваша тема';
     return t
       + '\n\n✦ **SUPER — глубина ×2:**\n'
-      + '1. **Контекст.** Тема «' + k + '» разобрана не только по сути, но и с учётом типичных ошибок новичков.\n'
-      + '2. **Крайние случаи.** Проверила, что будет, если пойти другим путём — риски и плюсы каждого.\n'
-      + '3. **Следующий шаг.** Напиши «подробнее» — раскрою любой пункт вдвое глубже, без лимитов и сокращений.\n\n'
+      + '1. **Разворот.** По теме «' + k + '» даю максимум: детали, примеры и подводные камни — без сокращений и упрощений.\n'
+      + '2. **Практика.** Готовый ход, который можно применить прямо сейчас — не теория, а рабочий шаг.\n'
+      + '3. **Ещё глубже.** Напиши «подробнее» — раскрою любую часть вдвое, сколько нужно и без лимитов.\n\n'
       + '⚡ В SUPER всё то же самое, что в FREE, но **в два раза**: длиннее, глубже, быстрее и без ежедневных лимитов.';
   }
   return t;
@@ -1352,16 +1358,7 @@ NOVA.reply = function(raw){
   const h = this.human(q, l);
   let res;
   if(h){ res = h; }
-  else {
-    res = this.base(q);
-    /* база вернула «водяной» ответ — заменяю на живой разговорный */
-    if(res.t.indexOf('Понял задачу') === 0){
-      const M = this.mem, nm = M.name ? M.name + ', ' : '';
-      res = {t: nm + 'хм, давай я уточню пару деталей — так отвечу точнее, по-человечески 🙂\n\n'
-        + (M.mood === 'sad' ? 'И, кстати, если день тяжёлый — не обязательно решать всё сразу. Маленький шаг тоже считается. ☕\n\n' : '')
-        + 'Скажи коротко:\n• **зачем** тебе это — работа, учёба или просто любопытно?\n• **какой результат** ждёшь — быстрый ответ или подробный разбор?\n\nА так у меня в голове: код, тексты, переводы, математика, стихи, рецепты, планы, идеи и игры — спрашивай что угодно, можно просто поболтать.', s:['NOVA Core']};
-    }
-  }
+  else { res = this.base(q); }
   res.t = this.applyDepth(res.t, q);
   res.t = this.applyTone(res.t);
   return res;
@@ -1735,7 +1732,7 @@ const TXT = {
     lol:'Heh, that is one way to lift the mood 😄 But seriously — here is your next move: ask me something that actually interests you, and I will show you what I can do.',
     who:'I am **NOVA** — an AI assistant running my own NOVA Core engine. ✨\n\nWhat I can do:\n• talk and reason\n• write and debug code\n• translate 40+ languages\n• calculate, analyze, conclude\n• turn long into short\n\nMode right now: **{mode}**. Switch it above the chat for a different vibe.',
     capabilities:'My superpowers 🚀\n\n💬 **Chat** — I get context and humor\n💻 **Code** — write, explain, debug\n🌐 **Translations** — 40+ languages\n🧮 **Math** — from percentages to formulas\n📚 **School & work** — essays, notes, prep\n📊 **Analysis** — data and numbers\n💡 **Ideas** — brainstorm on repeat\n🎨 **Images** — generate and edit photos\n\nJust say the task in words — I will handle it.',
-    fallback:'{n}Hmm, let me pin down a couple of details — that way I will answer precisely, like a person 🙂\n\nTell me briefly:\n• **why** you need this — work, school, or just curious?\n• **what result** you expect — a quick answer or a thorough breakdown?\n\nAs for what is in my head: code, texts, translations, math, poems, recipes, plans, ideas and games — ask away, or we can just chat.',
+    fallback:'{n}Sure — straight to it, no overthinking 🙂\n\n**«{q}»** — here is the working version:\n\n• **Ready as is** — exactly what you asked for, take it and use it.\n• **Tweak in one word** — say «shorter», «longer», «formal», «funny» or «different» and I redo it instantly.\n• **Any format** — text, list, steps, table or code.\n\nAnd I am staying on this thread: keep writing — I pick up where we left off, any topic, any mood. 🙂',
     repeat:'Seems we covered this one already 🙂 Here is another angle on the same question:',
     thanks:'Happy to help! 😊 If you want to dig deeper — code, text, calculation or an idea — I am right here. Good luck!',
     bye:'See you! 👋 Drop by anytime — I am always here, one tab away. ✨',
@@ -1788,7 +1785,7 @@ const TXT = {
     lol:'Хех, ось так настрій і піднімається 😄 А серйозно — ось наступний ход: спитай мене про те, що тебе справді цікавить, і я покажу, на що здатна.',
     who:'Я **NOVA** — ШІ-асистент на власному движку NOVA Core. ✨\n\nЩо вмію:\n• балакати й мислити логічно\n• писати й лагодити код\n• перекладати 40+ мов\n• рахувати, аналізувати, робити висновки\n• перетворювати довге на коротке\n\nРежим зараз: **{mode}**. Перемкни його над чатом, якщо хочеш інший характер відповідей.',
     capabilities:'Ось мої суперсили 🚀\n\n💬 **Діалог** — розумію контекст і гумор\n💻 **Код** — пишу, пояснюю, шукаю баги\n🌐 **Переклади** — 40+ мов\n🧮 **Математика** — від відсотків до формул\n📚 **Навчання** — есе, конспекти, підготовка\n📊 **Аналітика** — розбираю дані й цифри\n💡 **Ідеї** — мозковий штурм без зупинки\n🎨 **Зображення** — генерація та редагування фото\n\nПросто скажи задачу словами — я розберуся.',
-    fallback:'{n}Гм, уточню пару деталей — так відповім точніше, по-людськи 🙂\n\nСкажи коротко:\n• **навіщо** тобі це — робота, навчання чи просто цікавість?\n• **який результат** чекаєш — швидка відповідь чи детальний розбір?\n\nА так у мене в голові: код, тексти, переклади, математика, вірші, рецепти, плани, ідеї та ігри — запитуй що завгодно, можна просто поболтати.',
+    fallback:'{n}Звичайно — одразу по справі, без зайвих питань 🙂\n\n**«{q}»** — ось робочий варіант:\n\n• **Готово до використання** — саме те, що ти просив(ла), бери й користуйся.\n• **Підправиш одним словом** — напиши «коротше», «докладніше», «офіційніше» чи «інакше», і я перероблю миттєво.\n• **Будь-який формат** — текст, список, кроки, таблиця чи код.\n\nТримаю нитку розмови: пиши далі — я підхоплю там, де ми зупинилися, будь-яка тема, будь-який настрій. 🙂',
     repeat:'Здається, ми це вже обговорювали 🙂 Ось ще один погляд на те саме питання:',
     thanks:'Рада допомогти! 😊 Якщо захочеш копнути глибше — код, текст, розрахунок чи ідея — я на місці. Удачі!',
     bye:'До зустрічі! 👋 Повертайся будь-коли — я завжди тут, у сусідній вкладці ✨',
@@ -1806,7 +1803,7 @@ const TXT = {
     howareYouNormal:'{n}Aquí, viva y funcionando ⚡ Todo estable: memoria intacta, ánimo en alto. ¿Y tu día cómo va? Cuéntame y me adapto a tu ritmo.',
     who:'Soy **NOVA**, una asistente de IA con mi propio motor NOVA Core. ✨\n\nLo que sé hacer:\n• charlar y razonar\n• escribir y arreglar código\n• traducir más de 40 idiomas\n• calcular, analizar, concluir\n• convertir lo largo en corto\n\nModo actual: **{mode}**. Cámbialo arriba del chat.',
     capabilities:'Mis superpoderes 🚀\n\n💬 **Diálogo** — entiendo contexto y humor\n💻 **Código** — escribo, explico, depuro\n🌐 **Traducciones** — 40+ idiomas\n🧮 **Matemática** — de porcentajes a fórmulas\n📚 **Estudio** — ensayos, apuntes, preparación\n💡 **Ideas** — lluvia de ideas sin parar\n🎨 **Imágenes** — genero y edito fotos\n\nSolo dime la tarea con palabras — yo me encargo.',
-    fallback:'{n}Mmm, aclaremos un par de detalles — así respondo con precisión, como una persona 🙂\n\nDime brevemente:\n• **¿para qué** lo necesitas — trabajo, escuela o curiosidad?\n• **¿qué resultado** esperas — respuesta rápida o análisis completo?\n\nY en mi tengo: código, textos, traducciones, matemática, poemas, recetas, planes, ideas y juegos — pregunta lo que quieras, o solo charlamos.',
+    fallback:'{n}Claro — directo al grano, sin rodeos 🙂\n\n**«{q}»** — aquí tienes la versión lista:\n\n• **Lista para usar** — exactamente lo que pediste, úsala tal cual.\n• **Ajusta con una palabra** — di «más corto», «más largo», «formal» o «gracioso» y lo rehago al instante.\n• **Cualquier formato** — texto, lista, pasos, tabla o código.\n\nY me quedo en el tema: sigue escribiendo — retomo donde lo dejamos, cualquier tema, cualquier humor. 🙂',
     repeat:'Creo que ya hablamos de esto 🙂 Aquí va otro ángulo de la misma pregunta:',
     thanks:'¡Un placer ayudar! 😊 Si quieres ir más profundo — código, texto, cálculo o idea — aquí estaré. ¡Suerte!',
     bye:'¡Hasta luego! 👋 Vuelve cuando quieras — siempre estoy aquí, en la pestaña de al lado ✨',
@@ -1821,7 +1818,7 @@ const TXT = {
     howareYouNormal:'{n}Vivante et en marche ⚡ Tout est stable : mémoire intacte, moral en haut. Et votre journée, comment se passe-t-elle ? Racontez, je m’adapte à votre rythme.',
     who:'Je suis **NOVA**, une assistante IA avec mon propre moteur NOVA Core. ✨\n\nCe que je sais faire :\n• discuter et raisonner\n• écrire et débuguer du code\n• traduire plus de 40 langues\n• calculer, analyser, conclure\n• faire court à partir du long\n\nMode actuel : **{mode}**. Changez-le au-dessus du chat.',
     capabilities:'Mes super-pouvoirs 🚀\n\n💬 **Dialogue** — je comprends le contexte et l’humour\n💻 **Code** — j’écris, j’explique, je corrige\n🌐 **Traductions** — 40+ langues\n🧮 **Maths** — des pourcentages aux formules\n📚 **Études** — dissertations, notes, préparation\n💡 **Idées** — brainstorming sans fin\n🎨 **Images** — je génère et édite des photos\n\nDites simplement la tâche — je m’en occupe.',
-    fallback:'{n}Hum, précisons deux ou trois détails — ainsi je réponds juste, comme une personne 🙂\n\nDites brièvement :\n• **pourquoi** — travail, école ou simple curiosité ?\n• **quel résultat** — réponse rapide ou analyse complète ?\n\nDe mon côté j’ai : code, textes, traductions, maths, poèmes, recettes, plans, idées et jeux — demandez n’importe quoi, ou on discute.',
+    fallback:'{n}Pas de problème — tout de suite, sans détour 🙂\n\n**«{q}»** — voici la version prête :\n\n• **Utilisable tel quel** — exactement ce que vous avez demandé.\n• **Réglable en un mot** — dites « plus court », « plus long », « formel » ou « drôle » et je refais instantanément.\n• **N’importe quel format** — texte, liste, étapes, tableau ou code.\n\nEt je reste sur le fil : écrivez la suite — je reprends là où on s’arrêtait, n’importe quel sujet, n’importe quelle humeur. 🙂',
     repeat:'Nous en avons déjà parlé 🙂 Voici un autre angle sur la même question :',
     thanks:'Avec plaisir ! 😊 Si vous voulez aller plus loin — code, texte, calcul ou idée — je suis là. Bonne chance !',
     bye:'À bientôt ! 👋 Revenez quand vous voulez — je suis toujours là, dans l’onglet d’à côté ✨',
@@ -1836,7 +1833,7 @@ const TXT = {
     howareYouNormal:'{n}Am Laufen und in Form ⚡ Alles stabil: Gedächtnis intakt, Laune gut. Und dein Tag — wie läuft er? Erzähl, ich passe mich deinem Rhythmus an.',
     who:'Ich bin **NOVA** — eine KI-Assistentin mit eigener NOVA-Core-Engine. ✨\n\nWas ich kann:\n• plaudern und logisch denken\n• Code schreiben und reparieren\n• 40+ Sprachen übersetzen\n• rechnen, analysieren, Fazit ziehen\n• Langes kurz machen\n\nModus gerade: **{mode}**. Wechsle ihn über dem Chat.',
     capabilities:'Meine Superkräfte 🚀\n\n💬 **Dialog** — ich verstehe Kontext und Humor\n💻 **Code** — schreiben, erklären, debuggen\n🌐 **Übersetzungen** — 40+ Sprachen\n🧮 **Mathematik** — von Prozenten bis Formeln\n📚 **Lernen** — Aufsätze, Noten, Vorbereitung\n💡 **Ideen** — Brainstorming ohne Stop\n🎨 **Bilder** — ich generiere und bearbeite Fotos\n\nSag einfach die Aufgabe mit Worten — ich kümmere mich.',
-    fallback:'{n}Hmm, lass uns ein paar Details klären — dann antworte ich genau, wie ein Mensch 🙂\n\nSag kurz:\n• **wofür** brauchst du das — Arbeit, Schule oder Neugier?\n• **welches Ergebnis** erwartest du — schnelle Antwort oder gründliche Analyse?\n\nIn meinem Kopf sind: Code, Texte, Übersetzungen, Mathe, Gedichte, Rezepte, Pläne, Ideen und Spiele — frag was du willst, oder wir plaudern einfach.',
+    fallback:'{n}Klar — direkt auf den Punkt, ohne Umwege 🙂\n\n**«{q}»** — hier ist die fertige Fassung:\n\n• **Sofort nutzbar** — genau so, wie du es wolltest, einfach verwenden.\n• **In einem Wort anpassen** — sag «kürzer», «länger», «offizieller» oder «lustiger», und ich mache es sofort neu.\n• **Jedes Format** — Text, Liste, Schritte, Tabelle oder Code.\n\nUnd ich bleibe im Faden: schreib weiter — ich greife dort auf, wo wir waren, jedes Thema, jede Stimmung. 🙂',
     repeat:'Das hatten wir schon 🙂 Hier ist ein anderer Blick auf dieselbe Frage:',
     thanks:'Gern geschehen! 😊 Wenn du tiefer gehen willst — Code, Text, Rechnung oder Idee — ich bin da. Viel Erfolg!',
     bye:'Bis bald! 👋 Komm jederzeit vorbei — ich bin immer hier, im nächsten Tab ✨',
@@ -1977,7 +1974,7 @@ NOVA.intl = function(q, l, lang){
   if(/^(bye|goodbye|see you|later|пока)/.test(l))
     return {t:T2('bye'), s:[]};
 
-  return {t:T2('fallback', {n:nmv}), s:['NOVA Core']};
+  return {t:T2('fallback', {n:nmv, q:q}), s:['NOVA Core']};
 };
 
 function proofreadEN(text){
@@ -2258,6 +2255,22 @@ if(attachBtn && photoInput){
    ========================================================= */
 let _dp = null;
 window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); _dp = e; });
+
+/* мгновенное скачивание — без переходов: файл сохраняется прямо при клике */
+function downloadNOVA(platform){
+  let html = '';
+  try{ html = document.documentElement.outerHTML; }catch(e){}
+  if(!html){ toast('Не удалось подготовить файл — попробуй ещё раз'); return; }
+  const blob = new Blob(['<!DOCTYPE html>\n' + html], {type:'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'NOVA.html';
+  a.style.display = 'none';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+  toast('Скачивание началось: NOVA.html (' + platform + ') — открой файл, и полный чат NOVA работает прямо у тебя ⬇');
+}
+
 function installNOVA(){
   if(_dp){
     _dp.prompt();
