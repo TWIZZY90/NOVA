@@ -162,21 +162,6 @@ h2{font-size:clamp(30px,3.8vw,46px);letter-spacing:-1.4px;line-height:1.12;font-
 .send:disabled{opacity:.45;cursor:not-allowed;transform:none}
 .chat-foot{text-align:center;font-size:12.5px;color:var(--muted);padding:0 0 4px;margin-top:14px}
 
-/* ===== скачать ===== */
-.dl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:50px}
-.dl-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:30px;text-align:center;transition:.3s;position:relative}
-.dl-card:hover{transform:translateY(-7px);border-color:rgba(255,255,255,.25);background:var(--panel2)}
-.dl-card.reco{border-color:rgba(34,224,200,.5);box-shadow:0 0 0 1px rgba(34,224,200,.25),0 30px 60px -35px var(--cyan)}
-.dl-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(120deg,#22e0c8,#7c5cff);color:#06110f;font-size:12px;font-weight:700;padding:5px 15px;border-radius:100px;white-space:nowrap}
-.os-ico{font-size:44px;margin-bottom:14px}
-.dl-card h3{font-size:21px;margin-bottom:6px}
-.dl-card p{color:var(--muted);font-size:14.5px;margin-bottom:20px;min-height:44px}
-.dl-meta{font-size:12.5px;color:var(--muted);margin-top:14px}
-.bar{height:6px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden;margin-top:16px;display:none}
-.bar i{display:block;height:100%;width:0;background:var(--grad);transition:width .2s;border-radius:100px}
-.dl-note{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:36px;color:var(--muted);font-size:14.5px}
-.dl-note span{display:flex;align-items:center;gap:8px}
-
 /* ===== SUPER ===== */
 .super{background:radial-gradient(ellipse at 50% 0%,rgba(255,201,92,.09),transparent 60%)}
 .toggle{display:inline-flex;background:rgba(0,0,0,.4);border:1px solid var(--line);padding:6px;border-radius:100px;margin-top:32px;gap:6px}
@@ -346,7 +331,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
 
 /* ===== адаптив ===== */
 @media(max-width:980px){
-  .hero-inner,.f-grid,.dl-grid,.t-grid,.f-top{grid-template-columns:1fr 1fr}
+  .hero-inner,.f-grid,.t-grid,.f-top{grid-template-columns:1fr 1fr}
   .hero-inner{gap:40px}
   .f-top{grid-template-columns:1fr 1fr}
   .plans{grid-template-columns:1fr}
@@ -359,7 +344,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
   .burger{display:flex;margin-left:auto}
   .nav-cta .btn-ghost{display:none}
   .hero{padding-top:52px}
-  .hero-inner,.f-grid,.dl-grid,.t-grid,.f-top{grid-template-columns:1fr}
+  .hero-inner,.f-grid,.t-grid,.f-top{grid-template-columns:1fr}
   .stats{gap:26px}
   section{padding:64px 0}
   .cta-\boxed{padding:44px 22px}
@@ -371,6 +356,15 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
   .send{width:46px;height:46px;flex:0 0 46px}
   .install-bar{padding:24px 20px}
 }
+
+/* ===== Установленное приложение: сразу чат, без лендинга ===== */
+.standalone header,.standalone footer{display:none !important}
+.standalone section:not(#chat){display:none !important}
+.standalone #chat{padding-top:40px;padding-bottom:0;min-height:100vh}
+.standalone #chat .center,.standalone .chat-foot{display:none !important}
+.standalone .rv{opacity:1 !important;transform:none !important}
+.standalone .chat-shell{margin-top:0;display:flex;flex-direction:column;height:calc(100vh - 100px);min-height:420px}
+.standalone .chat-body{flex:1;height:auto !important;min-height:0}
 </style>
 </head>
 <body>
@@ -386,7 +380,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
       <div class="nav-links" id="navLinks">
         <a href="#features">Возможности</a>
         <a href="#chat">Чат</a>
-        <a href="#apps">Приложения</a>
+        <a href="#download">Скачать</a>
         <a href="#super">SUPER</a>
         <a href="#support">Поддержка</a>
       </div>
@@ -509,63 +503,13 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
   </div>
 </section>
 
-<!-- ===== СКАЧАТЬ ===== -->
+<!-- ===== СКАЧАТЬ / ПРИЛОЖЕНИЯ ===== -->
 <section id="download">
   <div class="wrap">
     <div class="center rv">
       <span class="eyebrow">Скачать</span>
-      <h2>NOVA — <span class="grad-text">на твой компьютер</span></h2>
-      <p class="sub">Лёгкое приложение без лишних файлов. Один клик — и ассистент всегда под рукой, даже без браузера.</p>
-    </div>
-
-    <div class="dl-grid">
-      <div class="dl-card rv" id="card-win">
-        <div class="dl-tag" style="display:none">Твоя система</div>
-        <div class="os-ico">🪟</div>
-        <h3>Windows</h3>
-        <p>Windows 10 / 11 · 64-bit<br>Установщик .exe</p>
-        <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="downloadNOVA('Windows')">⬇ Скачать для Windows</button>
-        <div class="bar"><i></i></div>
-        <div class="dl-meta">Версия 3.0.1 · 84 МБ</div>
-      </div>
-
-      <div class="dl-card rv" id="card-mac">
-        <div class="dl-tag" style="display:none">Твоя система</div>
-        <div class="os-ico">💻</div>
-        <h3>macOS</h3>
-        <p>macOS 12+ · Intel и Apple Silicon<br>Диск .dmg</p>
-        <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="downloadNOVA('macOS')">⬇ Скачать для macOS</button>
-        <div class="bar"><i></i></div>
-        <div class="dl-meta">Версия 3.0.1 · 92 МБ</div>
-      </div>
-
-      <div class="dl-card rv" id="card-linux">
-        <div class="dl-tag" style="display:none">Твоя система</div>
-        <div class="os-ico">🐧</div>
-        <h3>Linux</h3>
-        <p>Ubuntu, Fedora, Arch<br>AppImage / .deb</p>
-        <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="downloadNOVA('Linux')">⬇ Скачать для Linux</button>
-        <div class="bar"><i></i></div>
-        <div class="dl-meta">Версия 3.0.1 · 79 МБ</div>
-      </div>
-    </div>
-
-    <div class="dl-note rv">
-      <span>✅ Без вирусов и рекламы</span>
-      <span>🔄 Автообновления</span>
-      <span>📦 Работает офлайн (Mini)</span>
-      <span>🔐 Данные не покидают устройство</span>
-    </div>
-  </div>
-</section>
-
-<!-- ===== ПРИЛОЖЕНИЯ ===== -->
-<section id="apps">
-  <div class="wrap">
-    <div class="center rv">
-      <span class="eyebrow">Приложения</span>
       <h2>NOVA — <span class="grad-text">на всех твоих устройствах</span></h2>
-      <p class="sub">Телефон, планшет, компьютер — везде один и тот же ассистент с общей памятью. Ставь как приложение прямо из браузера: занимает место на иконках и открывается без адресной строки.</p>
+      <p class="sub">Андроид, iPhone и компьютер — одно приложение и один тап. Ставится прямо из браузера, запускается с рабочего стола и сразу открывает чат.</p>
     </div>
 
     <div class="plat-grid">
@@ -573,29 +517,29 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
         <div class="plat-ico">🤖</div>
         <span class="badge-soon badge-live">✓ Уже работает</span>
         <h3>Android</h3>
-        <p>Chrome / Samsung Internet → меню ⋮ → «Установить приложение». Или Play Market, когда мы туда попадём.</p>
-        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📲 Установить на Android</button>
+        <p>Chrome / Samsung Internet → меню ⋮ → «Установить приложение». После установки NOVA открывается сразу в чате.</p>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📲 Скачать на Android</button>
       </div>
       <div class="plat-card rv">
         <div class="plat-ico">🍎</div>
         <span class="badge-soon badge-live">✓ Уже работает</span>
         <h3>iPhone / iPad</h3>
-        <p>Safari → «Поделиться» → «На экран “Домой”». Иконка NOVA появится среди остальных приложений.</p>
-        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📲 Установить на iPhone</button>
+        <p>Safari → «Поделиться» → «На экран “Домой”». Иконка NOVA появится среди приложений и откроет сразу чат.</p>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📲 Скачать на iPhone</button>
       </div>
       <div class="plat-card rv">
         <div class="plat-ico">🖥</div>
         <span class="badge-soon badge-live">✓ Уже работает</span>
-        <h3>Windows / Mac / Linux</h3>
-        <p>Chrome / Edge → значок установки в адресной строке. Плюс полноценные установщики выше — 84–92 МБ.</p>
-        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📥 Установить на ПК</button>
+        <h3>ПК — Windows, Mac, Linux</h3>
+        <p>Chrome / Edge / Firefox → значок установки ⤓ в адресной строке. Встаёт как обычное приложение, открывает сразу чат.</p>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="installNOVA()">📥 Скачать на ПК</button>
       </div>
     </div>
 
     <div class="install-bar rv">
       <div>
         <h3>📌 Хочу NOVA как обычное приложение</h3>
-        <p>Один тап — и NOVA открывается на весь экран, включается с рабочего стола и работает офлайн (режим Mini). Магазины Play Market и App Store появятся после модерации — встроенный установщик работает уже сейчас.</p>
+        <p>Один тап — и NOVA открывается на весь экран без адресной строки, минуя сайт: сразу чат. Включается с рабочего стола и работает офлайн (режим Mini).</p>
       </div>
       <button class="btn btn-primary btn-lg" onclick="installNOVA()">⚡ Установить NOVA</button>
     </div>
@@ -711,7 +655,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
       <div class="q"><button>Какие карты принимаете?<span class="ic">+</span></button><div class="a"><p>Visa, Mastercard, МИР, UnionPay и American Express из 140+ стран: Россия, США, Украина, Казахстан, Евросоюз и другие. Валюта списания выбирается автоматически при оформлении.</p></div></div>
       <div class="q"><button>Можно ли отменить подписку?<span class="ic">+</span></button><div class="a"><p>В один клик в личном кабинете — без звонков и писем. Доступ сохранится до конца оплаченного периода, а на годовой подписке действует возврат денег в течение 14 дней.</p></div></div>
       <div class="q"><button>Мои данные в безопасности?<span class="ic">+</span></button><div class="a"><p>Трафик шифруется, переписка не продаётся рекламодателям. В офлайн-режиме приложение для ПК обрабатывает запросы прямо на устройстве — ничего не уходит в сеть.</p></div></div>
-      <div class="q"><button>На каких системах работает приложение?<span class="ic">+</span></button><div class="a"><p>Windows 10/11 (64-bit), macOS 12+ (Intel и Apple Silicon) и Linux (Ubuntu, Fedora, Arch). На телефонах — приложение из браузера (Android/iOS), оно встаёт как обычная иконка и работает офлайн. Весит меньше 100 МБ и обновляется автоматически.</p></div></div>
+      <div class="q"><button>На каких системах работает приложение?<span class="ic">+</span></button><div class="a"><p>Windows, macOS и Linux — через Chrome, Edge или Firefox: значок установки ⤓ в адресной строке. Android и iPhone — «Установить приложение» в меню браузера. Везде это одно приложение: ставится одним тапом, открывается с рабочего стола и сразу показывает чат — без лендинга.</p></div></div>
       <div class="q"><button>На каких языках умеет общаться NOVA?<span class="ic">+</span></button><div class="a"><p>NOVA сама определяет язык сообщения и отвечает на нём: русский, английский, украинский, казахский, испанский, французский, немецкий, турецкий, арабский, китайский, японский и другие. Индикатор языка показан рядом со статусом в чате.</p></div></div>
       <div class="q"><button>Что делать, если возникла проблема?<span class="ic">+</span></button><div class="a"><p>Загляни в раздел «Поддержка» выше: там быстрые решения частых проблем и форма обращения. Отвечаем на бесплатные вопросы в течение 24 часов, держателям SUPER — в течение 1 часа.</p></div></div>
     </div>
@@ -789,7 +733,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 34px;background:rgba(0,0,
         <a href="#top" class="logo"><span class="logo-mark">◆</span> NOVA</a>
         <p>Универсальный ИИ-ассистент собственной разработки. Помогает думать быстрее — в браузере и на компьютере.</p>
       </div>
-      <div class="f-col"><h4>Продукт</h4><a href="#features">Возможности</a><a href="#chat">Чат</a><a href="#apps">Приложения</a><a href="#super">SUPER</a></div>
+      <div class="f-col"><h4>Продукт</h4><a href="#features">Возможности</a><a href="#chat">Чат</a><a href="#download">Приложения</a><a href="#super">SUPER</a></div>
       <div class="f-col"><h4>Помощь</h4><a href="#support">Поддержка</a><a href="#faq">Вопросы</a><a href="#download">Скачать</a><a href="#chat">Статус</a></div>
       <div class="f-col"><h4>Компания</h4><a href="#">О проекте</a><a href="#">Блог</a><a href="#">Вакансии</a><a href="#">Контакты</a></div>
     </div>
@@ -1662,72 +1606,6 @@ document.getElementById('payBtn').addEventListener('click', ()=>{
 });
 
 /* =========================================================
-   СКАЧИВАНИЕ
-   ========================================================= */
-function downloadNOVA(os){
-  const el = document.getElementById(os==='macOS'?'card-mac':os==='Linux'?'card-linux':'card-win');
-  const bar = el.querySelector('.bar'); const fill = el.querySelector('.bar i');
-  const btn = el.querySelector('.btn');
-  bar.style.display='block'; btn.disabled = true;
-  let p = 0;
-  const iv = setInterval(()=>{
-    p += Math.random()*18+7;
-    if(p>=100){
-      p=100; clearInterval(iv); fill.style.width='100%';
-      setTimeout(()=>{
-        const txt =
-`╔══════════════════════════════════════╗
-║        NOVA 3.0 — Установщик         ║
-╚══════════════════════════════════════╝
-
-Платформа : ${os}
-Версия    : 3.0.1
-Размер    : ${os==='macOS'?'92':os==='Linux'?'79':'84'} МБ
-
-────────── Описание ──────────
-NOVA — универсальный ИИ-ассистент:
-  • умный чат и диалог с контекстом
-  • генерация и проверка кода
-  • переводы на 40+ языков
-  • аналитика, учёба, идеи
-  • режимы Mini / Max / SUPER
-
-────────── Установка ─────────
-Windows : запустите NOVA-Setup.exe
-macOS   : перетащите NOVA.app в Applications
-Linux   : chmod +x NOVA.AppImage && ./NOVA.AppImage
-
-────────── Тарифы ────────────
-FREE  — чат без лимита (Mini)
-SUPER — безлимит, память, файлы, скорость 24/7
-        оплата картой любой страны
-
-© 2026 NOVA. Демо-файл загрузки.`;
-        const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'NOVA-3.0.1-'+os.replace(/\s/g,'')+'-Installer.txt';
-        document.body.appendChild(a); a.click(); a.remove();
-        btn.textContent = '✓ Скачано'; btn.disabled = false;
-        setTimeout(()=>{ bar.style.display='none'; fill.style.width='0'; btn.textContent='⬇ Скачать для '+os; }, 2600);
-        toast('Загрузка NOVA для '+os+' завершена ⬇');
-      }, 350);
-    }
-    fill.style.width = Math.min(p,100)+'%';
-  }, 220);
-}
-
-/* определить систему */
-(function detectOS(){
-  const u = navigator.userAgent;
-  let os = 'Windows';
-  if(/Mac/i.test(u)) os='macOS'; else if(/Linux/i.test(u) && !/Android/i.test(u)) os='Linux';
-  const map = {Windows:'card-win',macOS:'card-mac',Linux:'card-linux'};
-  const el = document.getElementById(map[os]);
-  if(el){ el.classList.add('reco'); const t = el.querySelector('.dl-tag'); if(t) t.style.display='block'; }
-})();
-
-/* =========================================================
    ПРОЧЕЕ: FAQ, бургер, reveal, тост
    ========================================================= */
 document.getElementById('faqList').addEventListener('click', e=>{
@@ -2422,10 +2300,26 @@ function sendSupport(){
   toast('Открываю форму обращения — нажми «Create new issue» (текст уже скопирован)');
 }
 function quickFix(el, key){
-  const map = {chat:'#chat', pay:'#super', install:'#apps', super:'#super', lang:'#chat'};
+  const map = {chat:'#chat', pay:'#super', install:'#download', super:'#super', lang:'#chat'};
   const target = document.querySelector(map[key] || '#faq');
   if(target) target.scrollIntoView({behavior:'smooth'});
 }
+
+/* Установленное приложение (PWA): сразу чат, без лендинга */
+(function(){
+  let app = false;
+  try{ app = !!(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches); }catch(e){}
+  if(!app) app = (navigator.standalone === true);
+  if(!app) app = /(\?|&)app=1/.test(location.search);
+  if(app){
+    document.documentElement.classList.add('standalone');
+    try{ window.scrollTo(0, 0); }catch(e){}
+    setTimeout(function(){
+      const inp = document.getElementById('input');
+      if(inp && window.innerWidth > 700) inp.focus();
+    }, 350);
+  }
+})();
 
 updatePill(NOVA.LANG || 'ru');
 
